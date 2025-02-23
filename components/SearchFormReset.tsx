@@ -1,6 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
+import Link from "next/link";
 
 const SearchFormReset = () => {
   const reset = () => {
@@ -18,7 +19,9 @@ const SearchFormReset = () => {
       className="p-3 hover:bg-gray-100 rounded-full transition-colors text-gray-500"
       aria-label="Aramayı temizle"
     >
-      <X />
+      <Link href="/">
+        <X />
+      </Link>
     </button>
   );
 };
