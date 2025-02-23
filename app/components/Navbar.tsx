@@ -15,7 +15,7 @@ const Navbar = async () => {
         {session && session.user ? (
           <>
             <Link href="/proje/ekle">
-              <span>Projeni Ekle</span>
+              <span>Proje Ekle</span>
             </Link>
 
             <span className="text-btu_secondary">•</span>
