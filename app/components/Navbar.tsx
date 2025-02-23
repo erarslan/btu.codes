@@ -6,7 +6,7 @@ const Navbar = async () => {
   const session = await auth();
 
   return (
-    <nav className="flex items-center justify-between px-10 mt-2 max-w-5xl shadow-md mx-auto rounded-full text-primary bg-gray-50 font-semibold text-lg">
+    <nav className="flex items-center justify-between px-10 mt-2 max-w-5xl shadow-md mx-auto rounded-full text-btu_primary bg-gray-50 font-semibold text-lg">
       <Link href="/">
         <Image src="/logo.png" alt="logo" width={80} height={30} />
       </Link>
