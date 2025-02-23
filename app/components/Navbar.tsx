@@ -18,13 +18,13 @@ const Navbar = async () => {
               <span>Projeni Ekle</span>
             </Link>
 
-            <span className="text-secondary">•</span>
+            <span className="text-btu_secondary">•</span>
 
             <Link href={`/kullanici/${session.user.id}`}>
               <span>{session.user.name}</span>
             </Link>
 
-            <span className="text-secondary">•</span>
+            <span className="text-btu_secondary">•</span>
 
             <button
               onClick={async () => {
