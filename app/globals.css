@@ -11,6 +11,10 @@
     @apply bg-background text-foreground;
   }
 
+  ::selection {
+    @apply bg-[#50b1c8]/30;
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
