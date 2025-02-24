@@ -8,7 +8,7 @@ const ProjectCard = ({ project }: { project: ProjectCardType }) => {
   const {
     _createdAt,
     views,
-    author: { name, _id: authorId },
+    author: { name, _id: authorId, image: authorImage },
     _id,
     description,
     image,
@@ -51,7 +51,7 @@ const ProjectCard = ({ project }: { project: ProjectCardType }) => {
         <div className="flex items-center gap-2.5">
           <Link href={`/kullanici/${authorId}`}>
             <Image
-              src="https://picsum.photos/200/300"
+              src={authorImage}
               alt={name}
               width={36}
               height={36}

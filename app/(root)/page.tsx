@@ -1,5 +1,7 @@
+import { client } from "@/sanity/lib/client";
 import SearchForm from "../../components/SearchForm";
 import ProjectCard from "@/components/ProjectCard";
+import { PROJECTS_QUERY } from "@/sanity/lib/queries";
 export default async function Home({
   searchParams,
 }: {
@@ -7,36 +9,7 @@ export default async function Home({
 }) {
   const query = (await searchParams).query;
 
-  const projects = [
-    {
-      _createdAt: new Date(),
-      views: 55,
-      author: {
-        name: "John Doe",
-        _id: 1,
-      },
-      _id: 1,
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-      image: "https://picsum.photos/200/300",
-      category: "test",
-      title: "Test Project",
-    },
-    {
-      _createdAt: new Date(),
-      views: 55,
-      author: {
-        name: "John Doe",
-        _id: 2,
-      },
-      _id: 2,
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-      image: "https://picsum.photos/200/300",
-      category: "test",
-      title: "Test Project",
-    },
-  ];
+  const projects = await client.fetch(PROJECTS_QUERY);
 
   return (
     <main className="pt-28">
@@ -60,7 +33,7 @@ export default async function Home({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-5">
           <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 sm:p-6 rounded-2xl bg-gray-50/50">
             {projects?.length > 0 ? (
-              projects.map((project, index) => (
+              projects.map((project: ProjectCardType) => (
                 <ProjectCard key={project?._id} project={project} />
               ))
             ) : (
