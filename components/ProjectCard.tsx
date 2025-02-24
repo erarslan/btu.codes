@@ -3,12 +3,15 @@ import { EyeIcon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Author, Project } from "@/sanity/types";
+
+export type ProjectCardType = Omit<Project, "author"> & { author: Author };
 
 const ProjectCard = ({ project }: { project: ProjectCardType }) => {
   const {
     _createdAt,
     views,
-    author: { name, _id: authorId, image: authorImage },
+    author,
     _id,
     description,
     image,
@@ -21,8 +24,8 @@ const ProjectCard = ({ project }: { project: ProjectCardType }) => {
       <div className="h-44 w-full p-2">
         <div className="relative h-full w-full rounded-lg overflow-hidden">
           <Image
-            src={image}
-            alt={title}
+            src={image!}
+            alt={title!}
             fill
             className="object-cover hover:scale-105 transition-transform duration-300"
             priority
@@ -49,26 +52,26 @@ const ProjectCard = ({ project }: { project: ProjectCardType }) => {
         </div>
 
         <div className="flex items-center gap-2.5">
-          <Link href={`/kullanici/${authorId}`}>
+          <Link href={`/kullanici/${author._id}`}>
             <Image
-              src={authorImage}
-              alt={name}
+              src={author.image!}
+              alt={author.name!}
               width={36}
               height={36}
               className="rounded-full"
             />
           </Link>
           <Link
-            href={`/kullanici/${authorId}`}
+            href={`/kullanici/${author._id}`}
             className="text-sm font-medium text-gray-900 hover:text-btu_primary transition-colors"
           >
-            {name}
+            {author.name}
           </Link>
         </div>
 
         <div className="flex items-center justify-between pt-3.5 border-t border-gray-100">
           <Link
-            href={`/?query=${category.toLowerCase()}`}
+            href={`/?query=${category?.toLowerCase()}`}
             className="text-sm px-3 py-1 bg-gray-50 text-gray-600 rounded-full hover:bg-gray-100 transition-colors hover:shadow-sm"
           >
             {category}

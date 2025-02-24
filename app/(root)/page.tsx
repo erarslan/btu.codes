@@ -1,6 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import SearchForm from "../../components/SearchForm";
-import ProjectCard from "@/components/ProjectCard";
+import ProjectCard, { ProjectCardType } from "@/components/ProjectCard";
 import { PROJECTS_QUERY } from "@/sanity/lib/queries";
 export default async function Home({
   searchParams,
