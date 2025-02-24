@@ -39,12 +39,15 @@ export default async function Home({
   ];
 
   return (
-    <>
-      <div className="flex items-center justify-center mt-10">
-        <div className="animate-gradient-flow bg-gradient-to-r from-btu_primary via-btu_secondary to-btu_primary p-8 rounded-lg shadow-xl">
-          <h1 className="text-3xl font-bold text-white text-center">
-            Projeni ekle, üniversitedeki ekip arkadaşını bul!
-          </h1>
+    <main className="pt-28">
+      <div className="flex items-center justify-center px-4">
+        <div className="hero-gradient max-w-4xl w-full">
+          <div className="gradient-overlay" />
+          <div className="relative z-10 px-8 py-10">
+            <h1 className="hero-text text-4xl md:text-5xl font-bold text-white text-center leading-tight">
+              Projeni ekle, üniversitedeki ekip arkadaşını bul!
+            </h1>
+          </div>
         </div>
       </div>
       <SearchForm query={query} />
@@ -66,6 +69,6 @@ export default async function Home({
           </ul>
         </div>
       </section>
-    </>
+    </main>
   );
 }
