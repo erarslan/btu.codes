@@ -13,8 +13,6 @@ export default async function Home({
 
   const session = await auth();
 
-  console.log(session?.id);
-
   const { data: projects } = await sanityFetch({
     query: PROJECTS_QUERY,
     params,
