@@ -1,7 +1,7 @@
 import { client } from "@/sanity/lib/client";
 import Ping from "./Ping";
 import { PROJECT_VIEWS_QUERY } from "@/sanity/lib/queries";
-import { writeClient } from "@/sanity/lib/write-client";
+import { writeClient } from "@/sanity/lib/writeClient";
 import { after } from "next/server";
 
 const View = async ({ id }: { id: string }) => {
@@ -23,7 +23,7 @@ const View = async ({ id }: { id: string }) => {
         <Ping />
       </div>
       <p>
-        <span>{views} görüntüleme </span>
+        <span>{views + 1} görüntüleme </span>
       </p>
     </div>
   );
