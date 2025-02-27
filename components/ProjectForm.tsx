@@ -10,6 +10,8 @@ import { formSchema } from "@/lib/validation";
 import { z } from "zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { createProject } from "@/lib/actions";
+
 const ProjectForm = () => {
   const [pitch, setPitch] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -27,14 +29,14 @@ const ProjectForm = () => {
 
       await formSchema.parseAsync(formValues);
 
-      console.log(formValues);
+      const result = await createProject(prevState, formData, pitch);
 
-      // if (result.status === "SUCCESS") {
-      //   toast.success("Proje başarıyla eklendi!");
-      //   router.push(`/proje/${result.id}`);
-      // }
+      if (result.status === "SUCCESS") {
+        toast.success("Proje başarıyla eklendi!");
+        router.push(`/proje/${result._id}`);
+      }
 
-      // return result;
+      return result;
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors = error.flatten().fieldErrors;
