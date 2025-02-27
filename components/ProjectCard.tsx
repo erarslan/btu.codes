@@ -1,9 +1,10 @@
-import { formatDate } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import { EyeIcon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Author, Project } from "@/sanity/types";
+import { Skeleton } from "./ui/skeleton";
 
 export type ProjectCardType = Omit<Project, "author"> & { author: Author };
 
@@ -89,5 +90,42 @@ const ProjectCard = ({ project }: { project: ProjectCardType }) => {
     </li>
   );
 };
+
+export const ProjectCardSkeleton = () => (
+  <>
+    {[0, 1, 2, 3].map((index: number) => (
+      <li
+        key={cn("skeleton", index)}
+        className="bg-white rounded-xl shadow-md overflow-hidden"
+      >
+        <div className="h-44 w-full p-2">
+          <Skeleton className="h-full w-full rounded-lg" />
+        </div>
+
+        <div className="px-5 pb-5 space-y-3.5">
+          <div className="flex justify-between items-center">
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-4 w-12" />
+          </div>
+
+          <div className="space-y-2">
+            <Skeleton className="h-6 w-full" />
+            <Skeleton className="h-4 w-full" />
+          </div>
+
+          <div className="flex items-center gap-2.5">
+            <Skeleton className="h-9 w-9 rounded-full" />
+            <Skeleton className="h-4 w-32" />
+          </div>
+
+          <div className="flex items-center justify-between pt-3.5">
+            <Skeleton className="h-7 w-20 rounded-full" />
+            <Skeleton className="h-9 w-28 rounded-lg" />
+          </div>
+        </div>
+      </li>
+    ))}
+  </>
+);
 
 export default ProjectCard;
