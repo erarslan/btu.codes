@@ -29,7 +29,7 @@ const Navbar = async () => {
 
             <span className="text-btu_secondary/50">•</span>
 
-            <Link href={`/kullanici/${session.user.id}`} className="nav-link">
+            <Link href={`/kullanici/${session.id}`} className="nav-link">
               <span>{session.user.name}</span>
             </Link>
 
