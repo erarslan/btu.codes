@@ -8,6 +8,9 @@ import markdownit from "markdown-it";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import View from "@/components/View";
+import { PLAYLIST_BY_SLUG_QUERY } from "@/sanity/lib/queries";
+import ProjectCard, { ProjectCardType } from "@/components/ProjectCard";
+import { Award } from "lucide-react";
 
 const md = markdownit();
 
@@ -16,7 +19,12 @@ export const experimental_ppr = true;
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
 
-  const project = await client.fetch(PROJECT_BY_ID_QUERY, { id });
+  const [project, { select: playlist }] = await Promise.all([
+    client.fetch(PROJECT_BY_ID_QUERY, { id }),
+    client.fetch(PLAYLIST_BY_SLUG_QUERY, {
+      slug: "editor-secimleri",
+    }),
+  ]);
 
   if (!project) return notFound();
 
@@ -98,18 +106,31 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
       </section>
 
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold text-gray-900 mb-6">
-          Benzer Projeler
-        </h2>
-        <div className="bg-gray-50 rounded-xl p-6 text-center">
-          <p className="text-gray-600">
-            Yakında burada benzer projeler gösterilecek
-          </p>
-        </div>
-      </section>
+      <hr className="my-8 border-gray-200" />
 
-      <Suspense fallback={<Skeleton className="h-8 w-32 rounded-full" />}>
+      {playlist?.length > 0 && (
+        <section className="mt-12 bg-gradient-to-r from-white to-gray-50 rounded-xl shadow-sm p-6">
+          <div className="mb-6">
+            <div className="flex items-center gap-2">
+              <Award className="text-btu_primary size-7 stroke-[1.5]" />
+              <h2 className="text-2xl font-bold text-gray-900">
+                Editör <span className="text-btu_primary">Seçimleri</span>
+              </h2>
+            </div>
+          </div>
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {playlist.map((project: ProjectCardType, index: number) => (
+              <ProjectCard key={index} project={project} />
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <Suspense
+        fallback={
+          <Skeleton className="h-8 w-32 rounded-full fixed bottom-3 right-3" />
+        }
+      >
         <View id={id} />
       </Suspense>
     </main>
