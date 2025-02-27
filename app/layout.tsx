@@ -7,7 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "BTÜ Açık Kaynak Proje Galerisi",
+  title: "BTÜ Galeri",
   description: "Bursa Teknik Üniversitesi Açık Kaynak Proje Galerisi",
 };
 
