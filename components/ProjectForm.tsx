@@ -1,19 +1,70 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import MDEditor from "@uiw/react-md-editor";
 import { Button } from "./ui/button";
 import { Send, Image as ImageIcon, Tag, Type, FileText } from "lucide-react";
-
+import { formSchema } from "@/lib/validation";
+import { z } from "zod";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 const ProjectForm = () => {
   const [pitch, setPitch] = useState("");
-  const isPending = false;
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const router = useRouter();
+
+  const handleFormSubmit = async (prevState: any, formData: FormData) => {
+    try {
+      const formValues = {
+        title: formData.get("title") as string,
+        description: formData.get("description") as string,
+        category: formData.get("category") as string,
+        link: formData.get("link") as string,
+        pitch,
+      };
+
+      await formSchema.parseAsync(formValues);
+
+      console.log(formValues);
+
+      // if (result.status === "SUCCESS") {
+      //   toast.success("Proje başarıyla eklendi!");
+      //   router.push(`/proje/${result.id}`);
+      // }
+
+      // return result;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const fieldErrors = error.flatten().fieldErrors;
+        setErrors(fieldErrors as unknown as Record<string, string>);
+
+        toast.error("Lütfen inputları kontrol ediniz ve tekrar deneyiniz.");
+
+        return { ...prevState, error: "Validation failed", status: "ERROR" };
+      }
+
+      toast.error(
+        "Bilinmeyen bir hata oluştu. Lütfen daha sonra tekrar deneyiniz."
+      );
+
+      return {
+        ...prevState,
+        error: "An unknown error occurred",
+        status: "ERROR",
+      };
+    }
+  };
+
+  const [state, formAction, isPending] = useActionState(handleFormSubmit, {
+    error: "",
+    status: "INITIAL",
+  });
 
   return (
     <form
-      action={() => {}}
+      action={formAction}
       className="space-y-6 bg-white/80 backdrop-blur-md rounded-xl p-6 shadow-md border border-gray-200/20 transition-all duration-300 hover:shadow-lg"
     >
       <div className="space-y-2">
@@ -35,6 +86,7 @@ const ProjectForm = () => {
             className="pl-10 focus:ring-btu_primary focus:border-btu_primary"
           />
         </div>
+        {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
       </div>
 
       <div className="space-y-2">
@@ -56,6 +108,9 @@ const ProjectForm = () => {
             className="pl-10 min-h-24 focus:ring-btu_primary focus:border-btu_primary resize-none"
           />
         </div>
+        {errors.description && (
+          <p className="text-red-500 text-sm">{errors.description}</p>
+        )}
       </div>
 
       <div className="space-y-2">
@@ -77,6 +132,9 @@ const ProjectForm = () => {
             className="pl-10 focus:ring-btu_primary focus:border-btu_primary"
           />
         </div>
+        {errors.category && (
+          <p className="text-red-500 text-sm">{errors.category}</p>
+        )}
       </div>
 
       <div className="space-y-2">
@@ -98,6 +156,7 @@ const ProjectForm = () => {
             className="pl-10 focus:ring-btu_primary focus:border-btu_primary"
           />
         </div>
+        {errors.link && <p className="text-red-500 text-sm">{errors.link}</p>}
       </div>
 
       <div data-color-mode="light" className="space-y-2">
@@ -122,6 +181,7 @@ const ProjectForm = () => {
           }}
           onChange={(value) => setPitch(value as string)}
         />
+        {errors.pitch && <p className="text-red-500 text-sm">{errors.pitch}</p>}
       </div>
 
       <div className="flex justify-center mt-8">

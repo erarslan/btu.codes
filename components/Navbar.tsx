@@ -15,7 +15,7 @@ const Navbar = async () => {
           src="/logo.png"
           alt="logo"
           width={60}
-          height={22}
+          height={60}
           className="relative z-10 [filter:brightness(0)_saturate(100%)_invert(19%)_sepia(40%)_saturate(1642%)_hue-rotate(187deg)_brightness(94%)_contrast(93%)]"
         />
       </Link>
