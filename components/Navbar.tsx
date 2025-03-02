@@ -9,7 +9,7 @@ const Navbar = async () => {
   return (
     <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between px-4 sm:px-5 lg:px-7 py-2.5 sm:py-2 lg:py-2.5 w-auto max-w-xl lg:max-w-[600px] mx-auto rounded-full text-btu_primary font-semibold text-base lg:text-[18px] backdrop-blur-md bg-white/70 border border-gray-200/20 shadow-lg transition-all duration-300 hover:bg-white/80">
       <Link
-        href=""
+        href="/"
         className="transition-all duration-300 hover:opacity-80 mr-2.5 sm:mr-2.5 lg:mr-3.5 min-w-[45px] sm:min-w-[50px] lg:min-w-[54px] flex items-center justify-center"
       >
         <Image
