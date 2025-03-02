@@ -6,15 +6,15 @@ const Footer = () => {
 
   return (
     <footer className="mt-16 mb-6">
-      <div className="max-w-[490px] mx-auto">
+      <div className="max-w-[490px] mx-auto max-sm:max-w-[235px] ">
         <div className="flex items-center justify-center gap-3 py-2 rounded-full backdrop-blur-md bg-white/70 border border-gray-200/20 shadow-lg transition-all duration-300 hover:bg-white/80 text-btu_primary">
           <span className="text-xs sm:text-sm font-semibold">
             © {currentYear} BTÜ Galeri
           </span>
 
-          <div className="h-8 w-[1.5px] bg-gradient-to-b from-transparent via-btu_primary/60 to-transparent rounded-full animate-pulse"></div>
+          <div className="h-8 w-[1.5px] bg-gradient-to-b from-transparent via-btu_primary/60 to-transparent rounded-full animate-pulse max-sm:hidden"></div>
 
-          <div className="flex items-center gap-1 text-xs sm:text-sm font-medium">
+          <div className="flex items-center gap-1 text-xs sm:text-sm font-medium max-sm:hidden">
             <Link
               href="https://github.com/erarslan"
               target="_blank"
