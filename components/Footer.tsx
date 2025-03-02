@@ -6,7 +6,7 @@ const Footer = () => {
 
   return (
     <footer className="mt-16 mb-6">
-      <div className="max-w-[530px] mx-auto">
+      <div className="max-w-[490px] mx-auto">
         <div className="flex items-center justify-center gap-3 py-2 rounded-full backdrop-blur-md bg-white/70 border border-gray-200/20 shadow-lg transition-all duration-300 hover:bg-white/80 text-btu_primary">
           <span className="text-xs sm:text-sm font-semibold">
             © {currentYear} BTÜ Galeri
