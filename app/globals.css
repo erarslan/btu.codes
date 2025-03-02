@@ -94,7 +94,8 @@
 
   .hero-gradient {
     @apply relative overflow-hidden backdrop-blur-md rounded-2xl;
-    box-shadow: 0 10px 30px -5px rgba(17, 62, 104, 0.2),
+    box-shadow:
+      0 10px 30px -5px rgba(17, 62, 104, 0.2),
       0 5px 15px -3px rgba(80, 177, 200, 0.1);
     animation: shadowPulse 6s ease-in-out infinite;
   }
@@ -155,15 +156,18 @@
 
   @keyframes shadowPulse {
     0% {
-      box-shadow: 0 10px 30px -5px rgba(17, 62, 104, 0.2),
+      box-shadow:
+        0 10px 30px -5px rgba(17, 62, 104, 0.2),
         0 5px 15px -3px rgba(80, 177, 200, 0.1);
     }
     50% {
-      box-shadow: 0 15px 40px -5px rgba(17, 62, 104, 0.3),
+      box-shadow:
+        0 15px 40px -5px rgba(17, 62, 104, 0.3),
         0 8px 20px -3px rgba(80, 177, 200, 0.2);
     }
     100% {
-      box-shadow: 0 10px 30px -5px rgba(17, 62, 104, 0.2),
+      box-shadow:
+        0 10px 30px -5px rgba(17, 62, 104, 0.2),
         0 5px 15px -3px rgba(80, 177, 200, 0.1);
     }
   }
