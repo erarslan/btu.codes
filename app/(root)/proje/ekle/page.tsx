@@ -16,8 +16,8 @@ const Page = async () => {
           Projeni Ekle!
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          Projeni BTÜ Galeri'de paylaşarak diğer öğrencilere ilham ver ve geri
-          bildirim al.
+          Projeni ekle ve üniversitedeki yetenek havuzuna erişerek hayallerini
+          gerçeğe dönüştür!
         </p>
       </section>
 

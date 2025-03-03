@@ -7,8 +7,9 @@ import { Toaster } from "@/components/ui/sonner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "BTÜ Galeri",
-  description: "Bursa Teknik Üniversitesi Açık Kaynak Proje Galerisi",
+  title: "BTÜ Codes",
+  description:
+    "BTÜ Codes, Bursa Teknik Üniversitesi'nde öğrencilerin projelerini paylaşabildiği bir platformdur.",
 };
 
 export default function RootLayout({

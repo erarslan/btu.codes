@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="max-w-[490px] mx-auto max-sm:max-w-[235px] ">
         <div className="flex items-center justify-center gap-3 py-2 rounded-full backdrop-blur-md bg-white/70 border border-gray-200/20 shadow-lg transition-all duration-300 hover:bg-white/80 text-btu_primary">
           <span className="text-xs sm:text-sm font-semibold">
-            © {currentYear} BTÜ Galeri
+            © {currentYear} BTÜ Codes
           </span>
 
           <div className="h-8 w-[1.5px] bg-gradient-to-b from-transparent via-btu_primary/60 to-transparent rounded-full animate-pulse max-sm:hidden"></div>
