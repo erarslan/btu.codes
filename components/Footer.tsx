@@ -34,7 +34,7 @@ const Footer = () => {
           <div className="h-8 w-[1.5px] bg-gradient-to-b from-transparent via-btu_primary/60 to-transparent rounded-full animate-pulse"></div>
 
           <Link
-            href="https://github.com/btu-gallery"
+            href="https://github.com/erarslan/btu.codes"
             target="_blank"
             className="flex items-center justify-center w-8 h-8 rounded-full bg-white/50 transition-all duration-500 ease-in-out hover:scale-125"
             aria-label="GitHub"
