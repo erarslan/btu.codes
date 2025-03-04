@@ -81,16 +81,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
               <Link
                 href={`/?query=${project.category?.toLowerCase()}`}
-                className="text-sm px-4 py-1.5 bg-gray-50 text-gray-600 rounded-full hover:bg-gray-100 transition-colors hover:shadow-sm hidden sm:block"
-              >
-                {project.category}
-              </Link>
-            </div>
-
-            <div className="sm:hidden mt-3">
-              <Link
-                href={`/?query=${project.category?.toLowerCase()}`}
-                className="text-sm px-4 py-1.5 bg-gray-50 text-gray-600 rounded-full hover:bg-gray-100 transition-colors hover:shadow-sm inline-block"
+                className="text-sm px-4 py-1.5 bg-gray-50 text-gray-600 rounded-full hover:bg-gray-100 transition-colors hover:shadow-sm"
               >
                 {project.category}
               </Link>
