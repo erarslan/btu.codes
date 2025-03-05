@@ -40,7 +40,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             <Link
               href={`https://github.com/${user.username}`}
               target="_blank"
-              className="text-btu_primary font-medium mb-4 flex items-center hover:scale-110 transition-all duration-300 ease-in-out group"
+              className="text-btu_primary font-medium mb-4 flex items-center hover:scale-110 transition-all duration-300 group"
             >
               <span>@{user.username}</span>
               <Github className="w-0 h-5 ml-0 group-hover:w-5 group-hover:ml-2 transition-all duration-300 overflow-hidden" />

@@ -36,7 +36,7 @@ const Footer = () => {
           <Link
             href="https://github.com/erarslan/btu.codes"
             target="_blank"
-            className="flex items-center justify-center w-8 h-8 rounded-full bg-white/50 transition-all duration-500 ease-in-out hover:scale-125"
+            className="flex items-center justify-center w-8 h-8 rounded-full transition-all duration-500 hover:scale-125"
             aria-label="GitHub"
           >
             <Github size={22} className="text-btu_primary" />

@@ -72,12 +72,12 @@
 
 @layer components {
   .nav-link {
-    @apply relative px-3 py-1.5 rounded-full transition-all duration-300 ease-in-out;
+    @apply relative px-3 py-1.5 rounded-full transition-all duration-300;
   }
 
   .nav-link::after {
     content: "";
-    @apply absolute w-0 h-0.5 bottom-0 left-1/2 bg-current transition-all duration-300 ease-in-out -translate-x-1/2;
+    @apply absolute w-0 h-0.5 bottom-0 left-1/2 bg-current transition-all duration-300 -translate-x-1/2;
   }
 
   .nav-link:hover::after {
@@ -85,7 +85,7 @@
   }
 
   .nav-button {
-    @apply px-4 py-1.5 rounded-full transition-all duration-300 ease-in-out border-white/10;
+    @apply px-4 py-1.5 rounded-full transition-all duration-300 border-white/10;
   }
 
   .nav-button:hover {
