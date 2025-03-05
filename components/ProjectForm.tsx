@@ -33,6 +33,7 @@ interface ProjectFormProps {
 
 // Önceden belirlenmiş kategoriler
 const CATEGORIES = [
+  "Dönem Projesi",
   "Web Geliştirme",
   "Mobil Geliştirme",
   "Yapay Zeka",
@@ -46,7 +47,6 @@ const CATEGORIES = [
   "Java",
   "Python",
   "JavaScript",
-  "React",
   "Flutter",
 ];
 
