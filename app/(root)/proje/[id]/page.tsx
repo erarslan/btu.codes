@@ -37,7 +37,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <main className="max-w-5xl mx-auto px-4 pt-28 pb-8 md:pt-32 md:pb-12">
       <section className="mb-8">
-        <div className="flex justify-between items-start">
+        <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
           <div>
             <p className="text-gray-500 text-sm mb-3">
               {formatDate(project._createdAt)}
@@ -49,7 +49,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           </div>
           {isOwner && (
             <Link href={`/proje/${id}/duzenle`}>
-              <Button className="flex items-center gap-2 bg-btu_primary hover:bg-btu_primary/90">
+              <Button className="flex items-center gap-2 bg-btu_primary hover:bg-btu_primary/90 shrink-0">
                 <Edit className="size-4" />
                 Düzenle
               </Button>
