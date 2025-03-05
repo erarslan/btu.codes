@@ -5,36 +5,79 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import MDEditor from "@uiw/react-md-editor";
 import { Button } from "./ui/button";
-import { Send, Image as ImageIcon, Tag, Type, FileText } from "lucide-react";
+import {
+  Send,
+  Image as ImageIcon,
+  Type,
+  FileText,
+  AlertCircle,
+} from "lucide-react";
 import { formSchema } from "@/lib/validation";
 import { z } from "zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { createProject, updateProject } from "@/lib/actions";
+import { Checkbox } from "./ui/checkbox";
 
 interface ProjectFormProps {
   initialData?: {
     _id: string;
     title: string;
     description: string;
-    category: string;
+    category: string[];
     image: string;
     pitch: string;
   };
   isEditing?: boolean;
 }
 
+// Önceden belirlenmiş kategoriler
+const CATEGORIES = [
+  "Web Geliştirme",
+  "Mobil Geliştirme",
+  "Yapay Zeka",
+  "Veri Bilimi",
+  "Oyun Geliştirme",
+  "Siber Güvenlik",
+  "Blockchain",
+  "IoT",
+  "Robotik",
+  "C/C++",
+  "Java",
+  "Python",
+  "JavaScript",
+  "React",
+  "Flutter",
+];
+
 const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
   const [pitch, setPitch] = useState(initialData?.pitch || "");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(
+    initialData?.category || []
+  );
   const router = useRouter();
 
   const handleFormSubmit = async (prevState: any, formData: FormData) => {
     try {
+      // Seçilen kategorileri formData'ya ekle
+      const formDataWithCategories = new FormData();
+      for (const [key, value] of formData.entries()) {
+        if (key !== "category") {
+          formDataWithCategories.append(key, value);
+        }
+      }
+
+      // Seçilen kategorileri JSON string olarak ekle
+      formDataWithCategories.append(
+        "category",
+        JSON.stringify(selectedCategories)
+      );
+
       const formValues = {
         title: formData.get("title") as string,
         description: formData.get("description") as string,
-        category: formData.get("category") as string,
+        category: selectedCategories,
         link: formData.get("link") as string,
         pitch,
       };
@@ -44,7 +87,7 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
       if (isEditing && initialData) {
         const result = await updateProject(
           prevState,
-          formData,
+          formDataWithCategories,
           pitch,
           initialData._id
         );
@@ -56,7 +99,11 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
 
         return result;
       } else {
-        const result = await createProject(prevState, formData, pitch);
+        const result = await createProject(
+          prevState,
+          formDataWithCategories,
+          pitch
+        );
 
         if (result.status === "SUCCESS") {
           toast.success("Proje başarıyla eklendi!");
@@ -91,6 +138,20 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
     error: "",
     status: "INITIAL",
   });
+
+  const toggleCategory = (category: string) => {
+    setSelectedCategories((prev) => {
+      if (prev.includes(category)) {
+        return prev.filter((c) => c !== category);
+      } else {
+        if (prev.length === 5) {
+          toast.error("En fazla 5 kategori seçebilirsiniz.");
+          return prev;
+        }
+        return [...prev, category];
+      }
+    });
+  };
 
   return (
     <form
@@ -146,24 +207,31 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
       </div>
 
       <div className="space-y-2">
-        <label
-          htmlFor="category"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label className="block text-sm font-medium text-gray-700">
           Proje Kategorisi
         </label>
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
-            <Tag className="size-4" />
+        {selectedCategories.length === 0 && (
+          <div className="flex items-center text-red-500 text-sm">
+            <AlertCircle className="size-4 mr-1" />
+            <span>En az bir kategori seçmelisiniz!</span>
           </div>
-          <Input
-            id="category"
-            name="category"
-            required
-            defaultValue={initialData?.category || ""}
-            placeholder="Örn: Web Geliştirme, Mobil Uygulama, Yapay Zeka"
-            className="pl-10 focus:ring-btu_primary focus:border-btu_primary"
-          />
+        )}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-2">
+          {CATEGORIES.map((category) => (
+            <div key={category} className="flex items-center space-x-2">
+              <Checkbox
+                id={`category-${category}`}
+                checked={selectedCategories.includes(category)}
+                onCheckedChange={() => toggleCategory(category)}
+              />
+              <label
+                htmlFor={`category-${category}`}
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                {category}
+              </label>
+            </div>
+          ))}
         </div>
         {errors.category && (
           <p className="text-red-500 text-sm">{errors.category}</p>

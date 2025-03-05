@@ -23,6 +23,8 @@ export const createProject = async (
     Array.from(form).filter(([key]) => key !== "pitch")
   );
 
+  const parsedCategory = JSON.parse(category as string);
+
   const slug = slugify(title as string, { lower: true, strict: true });
 
   try {
@@ -37,7 +39,7 @@ export const createProject = async (
         current: slug,
       },
       description,
-      category,
+      category: parsedCategory,
       image: link,
       pitch,
     };
@@ -81,6 +83,8 @@ export const updateProject = async (
     Array.from(form).filter(([key]) => key !== "pitch")
   );
 
+  const parsedCategory = JSON.parse(category as string);
+
   const slug = slugify(title as string, { lower: true, strict: true });
 
   try {
@@ -91,7 +95,7 @@ export const updateProject = async (
         current: slug,
       },
       description,
-      category,
+      category: parsedCategory,
       image: link,
       pitch,
     };
