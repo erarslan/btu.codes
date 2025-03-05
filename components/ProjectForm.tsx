@@ -10,10 +10,22 @@ import { formSchema } from "@/lib/validation";
 import { z } from "zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { createProject } from "@/lib/actions";
+import { createProject, updateProject } from "@/lib/actions";
 
-const ProjectForm = () => {
-  const [pitch, setPitch] = useState("");
+interface ProjectFormProps {
+  initialData?: {
+    _id: string;
+    title: string;
+    description: string;
+    category: string;
+    image: string;
+    pitch: string;
+  };
+  isEditing?: boolean;
+}
+
+const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
+  const [pitch, setPitch] = useState(initialData?.pitch || "");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const router = useRouter();
 
@@ -29,14 +41,30 @@ const ProjectForm = () => {
 
       await formSchema.parseAsync(formValues);
 
-      const result = await createProject(prevState, formData, pitch);
+      if (isEditing && initialData) {
+        const result = await updateProject(
+          prevState,
+          formData,
+          pitch,
+          initialData._id
+        );
 
-      if (result.status === "SUCCESS") {
-        toast.success("Proje başarıyla eklendi!");
-        router.push(`/proje/${result._id}`);
+        if (result.status === "SUCCESS") {
+          toast.success("Proje başarıyla güncellendi!");
+          router.push(`/proje/${initialData._id}`);
+        }
+
+        return result;
+      } else {
+        const result = await createProject(prevState, formData, pitch);
+
+        if (result.status === "SUCCESS") {
+          toast.success("Proje başarıyla eklendi!");
+          router.push(`/proje/${result._id}`);
+        }
+
+        return result;
       }
-
-      return result;
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors = error.flatten().fieldErrors;
@@ -84,6 +112,7 @@ const ProjectForm = () => {
             id="title"
             name="title"
             required
+            defaultValue={initialData?.title || ""}
             placeholder="Projenizin başlığını girin"
             className="pl-10 focus:ring-btu_primary focus:border-btu_primary"
           />
@@ -106,6 +135,7 @@ const ProjectForm = () => {
             id="description"
             name="description"
             required
+            defaultValue={initialData?.description || ""}
             placeholder="Projenizi kısaca açıklayın"
             className="pl-10 min-h-24 focus:ring-btu_primary focus:border-btu_primary resize-none"
           />
@@ -130,6 +160,7 @@ const ProjectForm = () => {
             id="category"
             name="category"
             required
+            defaultValue={initialData?.category || ""}
             placeholder="Örn: Web Geliştirme, Mobil Uygulama, Yapay Zeka"
             className="pl-10 focus:ring-btu_primary focus:border-btu_primary"
           />
@@ -154,6 +185,7 @@ const ProjectForm = () => {
             id="link"
             name="link"
             required
+            defaultValue={initialData?.image || ""}
             placeholder="Projenizi temsil eden bir resim linki ekleyin"
             className="pl-10 focus:ring-btu_primary focus:border-btu_primary"
           />
@@ -192,7 +224,13 @@ const ProjectForm = () => {
           disabled={isPending}
           className="px-6 py-3 h-auto text-base flex items-center justify-center gap-2 bg-btu_primary hover:bg-btu_primary/90 text-white transition-all duration-300"
         >
-          {isPending ? "Proje ekleniyor..." : "Projeni Ekle"}
+          {isPending
+            ? isEditing
+              ? "Proje güncelleniyor..."
+              : "Proje ekleniyor..."
+            : isEditing
+              ? "Projeni Güncelle"
+              : "Projeni Ekle"}
           <Send className="size-5" />
         </Button>
       </div>

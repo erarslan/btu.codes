@@ -10,7 +10,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import View from "@/components/View";
 import { PLAYLIST_BY_SLUG_QUERY } from "@/sanity/lib/queries";
 import ProjectCard, { ProjectCardType } from "@/components/ProjectCard";
-import { Award } from "lucide-react";
+import { Award, Edit } from "lucide-react";
+import { auth } from "@/auth";
+import { Button } from "@/components/ui/button";
 
 const md = markdownit();
 
@@ -18,6 +20,7 @@ export const experimental_ppr = true;
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
+  const session = await auth();
 
   const [project, { select: playlist }] = await Promise.all([
     client.fetch(PROJECT_BY_ID_QUERY, { id }),
@@ -29,17 +32,30 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   if (!project) return notFound();
 
   const parsedContent = md.render(project?.pitch || "");
+  const isOwner = session && session.id === project.author._id;
 
   return (
     <main className="max-w-5xl mx-auto px-4 pt-28 pb-8 md:pt-32 md:pb-12">
       <section className="mb-8">
-        <p className="text-gray-500 text-sm mb-3">
-          {formatDate(project._createdAt)}
-        </p>
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          {project.title}
-        </h1>
-        <p className="text-lg text-gray-600">{project.description}</p>
+        <div className="flex justify-between items-start">
+          <div>
+            <p className="text-gray-500 text-sm mb-3">
+              {formatDate(project._createdAt)}
+            </p>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              {project.title}
+            </h1>
+            <p className="text-lg text-gray-600">{project.description}</p>
+          </div>
+          {isOwner && (
+            <Link href={`/proje/${id}/duzenle`}>
+              <Button className="flex items-center gap-2 bg-btu_primary hover:bg-btu_primary/90">
+                <Edit className="size-4" />
+                Düzenle
+              </Button>
+            </Link>
+          )}
+        </div>
       </section>
 
       <section className="bg-white rounded-xl shadow-md p-6 mb-8">

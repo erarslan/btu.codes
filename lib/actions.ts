@@ -61,3 +61,54 @@ export const createProject = async (
     });
   }
 };
+
+export const updateProject = async (
+  state: any,
+  form: FormData,
+  pitch: string,
+  projectId: string
+) => {
+  const session = await auth();
+
+  if (!session) {
+    return parseServerActionResponse({
+      error: "Not signed in",
+      status: "ERROR",
+    });
+  }
+
+  const { title, description, category, link } = Object.fromEntries(
+    Array.from(form).filter(([key]) => key !== "pitch")
+  );
+
+  const slug = slugify(title as string, { lower: true, strict: true });
+
+  try {
+    const project = {
+      title,
+      slug: {
+        _type: "slug",
+        current: slug,
+      },
+      description,
+      category,
+      image: link,
+      pitch,
+    };
+
+    const result = await writeClient.patch(projectId).set(project).commit();
+
+    return parseServerActionResponse({
+      ...result,
+      error: "",
+      status: "SUCCESS",
+    });
+  } catch (error) {
+    console.log(error);
+
+    return parseServerActionResponse({
+      error: JSON.stringify(error),
+      status: "ERROR",
+    });
+  }
+};
