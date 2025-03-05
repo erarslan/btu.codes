@@ -23,10 +23,9 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 pt-32 pb-24">
-      <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 mb-8 text-center">
+      <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
         Projeni Düzenle
       </h1>
-
       <ProjectForm initialData={project} isEditing />
     </div>
   );
