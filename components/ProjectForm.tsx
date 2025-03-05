@@ -11,6 +11,7 @@ import {
   Type,
   FileText,
   AlertCircle,
+  Github,
 } from "lucide-react";
 import { formSchema } from "@/lib/validation";
 import { z } from "zod";
@@ -27,6 +28,7 @@ interface ProjectFormProps {
     category: string[];
     image: string;
     pitch: string;
+    githubRepo: string;
   };
   isEditing?: boolean;
 }
@@ -76,6 +78,7 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
         description: formData.get("description") as string,
         category: selectedCategories,
         link: formData.get("link") as string,
+        githubRepo: formData.get("githubRepo") as string,
         pitch,
       };
 
@@ -256,6 +259,31 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
           />
         </div>
         {errors.link && <p className="text-red-500 text-sm">{errors.link}</p>}
+      </div>
+
+      <div className="space-y-2">
+        <label
+          htmlFor="githubRepo"
+          className="block text-sm font-medium text-gray-700"
+        >
+          GitHub Repo Linki
+        </label>
+        <div className="relative">
+          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+            <Github className="size-4" />
+          </div>
+          <Input
+            id="githubRepo"
+            name="githubRepo"
+            required
+            defaultValue={initialData?.githubRepo || ""}
+            placeholder="Projenizin GitHub repo linkini ekleyin"
+            className="pl-10 focus:ring-btu_primary focus:border-btu_primary"
+          />
+        </div>
+        {errors.githubRepo && (
+          <p className="text-red-500 text-sm">{errors.githubRepo}</p>
+        )}
       </div>
 
       <div data-color-mode="light" className="space-y-2">

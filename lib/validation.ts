@@ -20,5 +20,12 @@ export const formSchema = z.object({
         return false;
       }
     }),
+  githubRepo: z
+    .string()
+    .url("Geçerli bir URL giriniz")
+    .regex(
+      /github\.com\/[\w-]+\/[\w-]+/,
+      "Geçerli bir GitHub repo URL'i giriniz"
+    ),
   pitch: z.string().min(10),
 });

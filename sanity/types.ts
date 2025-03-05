@@ -160,6 +160,7 @@ export type Project = {
   description?: string;
   category?: string[];
   image?: string;
+  githubRepo: string;
   pitch?: string;
 };
 

@@ -19,7 +19,7 @@ export const createProject = async (
     });
   }
 
-  const { title, description, category, link } = Object.fromEntries(
+  const { title, description, category, link, githubRepo } = Object.fromEntries(
     Array.from(form).filter(([key]) => key !== "pitch")
   );
 
@@ -41,6 +41,7 @@ export const createProject = async (
       description,
       category: parsedCategory,
       image: link,
+      githubRepo,
       pitch,
     };
 
@@ -79,7 +80,7 @@ export const updateProject = async (
     });
   }
 
-  const { title, description, category, link } = Object.fromEntries(
+  const { title, description, category, link, githubRepo } = Object.fromEntries(
     Array.from(form).filter(([key]) => key !== "pitch")
   );
 
@@ -97,6 +98,7 @@ export const updateProject = async (
       description,
       category: parsedCategory,
       image: link,
+      githubRepo,
       pitch,
     };
 

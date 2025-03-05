@@ -1,5 +1,5 @@
 import { cn, formatDate } from "@/lib/utils";
-import { EyeIcon } from "lucide-react";
+import { EyeIcon, Github } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,7 @@ const ProjectCard = ({ project }: { project: ProjectCardType }) => {
     image,
     category,
     title,
+    githubRepo,
   } = project;
 
   return (
@@ -83,7 +84,21 @@ const ProjectCard = ({ project }: { project: ProjectCardType }) => {
               </Link>
             ))}
           </div>
-          <div className="flex justify-end">
+          <div className="flex justify-between items-center">
+            <Button
+              asChild
+              className="bg-gray-800 hover:bg-gray-700 text-white p-2"
+            >
+              <a
+                href={githubRepo}
+                target="_blank"
+                className="flex items-center gap-2"
+              >
+                <Github />
+                <span className="text-sm">GitHub Repo</span>
+              </a>
+            </Button>
+
             <Button
               asChild
               variant="default"

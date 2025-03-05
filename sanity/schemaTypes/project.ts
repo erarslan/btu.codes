@@ -45,6 +45,12 @@ export const project = defineType({
       validation: (Rule) => Rule.required().error("Image is required"),
     }),
     defineField({
+      name: "githubRepo",
+      type: "url",
+      validation: (Rule) =>
+        Rule.required().error("GitHub repo linki zorunludur"),
+    }),
+    defineField({
       name: "pitch",
       type: "markdown",
       validation: (Rule) => Rule.required().error("Pitch is required"),

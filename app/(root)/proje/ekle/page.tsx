@@ -13,12 +13,8 @@ const Page = async () => {
     <div className="max-w-4xl mx-auto px-4 pt-32 pb-24">
       <section className="mb-8 text-center">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-          Projeni Ekle!
+          Projeni Ekle
         </h1>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          Projeni ekle ve üniversitedeki yetenek havuzuna erişerek hayallerini
-          gerçeğe dönüştür!
-        </p>
       </section>
 
       <ProjectForm />

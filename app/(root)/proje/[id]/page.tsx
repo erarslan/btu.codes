@@ -10,7 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import View from "@/components/View";
 import { PLAYLIST_BY_SLUG_QUERY } from "@/sanity/lib/queries";
 import ProjectCard, { ProjectCardType } from "@/components/ProjectCard";
-import { Award, Edit } from "lucide-react";
+import { Award, Edit, Github, ExternalLink } from "lucide-react";
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 
@@ -70,6 +70,20 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 priority
               />
             </div>
+            <Button
+              asChild
+              className="mt-4 w-full bg-gray-800 hover:bg-gray-700"
+            >
+              <a
+                href={project.githubRepo}
+                target="_blank"
+                className="flex items-center justify-center gap-2"
+              >
+                <Github />
+                <span>GitHub Repo</span>
+                <ExternalLink />
+              </a>
+            </Button>
           </div>
 
           <div className="md:col-span-2 space-y-6">
