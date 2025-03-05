@@ -31,7 +31,6 @@ interface ProjectFormProps {
   isEditing?: boolean;
 }
 
-// Önceden belirlenmiş kategoriler
 const CATEGORIES = [
   "Dönem Projesi",
   "Web Geliştirme",
@@ -60,7 +59,6 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
 
   const handleFormSubmit = async (prevState: any, formData: FormData) => {
     try {
-      // Seçilen kategorileri formData'ya ekle
       const formDataWithCategories = new FormData();
       for (const [key, value] of formData.entries()) {
         if (key !== "category") {
@@ -68,7 +66,6 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
         }
       }
 
-      // Seçilen kategorileri JSON string olarak ekle
       formDataWithCategories.append(
         "category",
         JSON.stringify(selectedCategories)
@@ -140,17 +137,17 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
   });
 
   const toggleCategory = (category: string) => {
-    setSelectedCategories((prev) => {
-      if (prev.includes(category)) {
-        return prev.filter((c) => c !== category);
+    const isSelected = selectedCategories.includes(category);
+
+    if (isSelected) {
+      setSelectedCategories(selectedCategories.filter((c) => c !== category));
+    } else {
+      if (selectedCategories.length < 5) {
+        setSelectedCategories([...selectedCategories, category]);
       } else {
-        if (prev.length === 5) {
-          toast.error("En fazla 5 kategori seçebilirsiniz.");
-          return prev;
-        }
-        return [...prev, category];
+        toast.error("En fazla 5 kategori seçebilirsiniz.");
       }
-    });
+    }
   };
 
   return (
