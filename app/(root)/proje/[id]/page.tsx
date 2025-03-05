@@ -95,12 +95,17 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 </div>
               </Link>
 
-              <Link
-                href={`/?query=${project.category?.toLowerCase()}`}
-                className="text-sm px-4 py-1.5 bg-gray-50 text-gray-600 rounded-full hover:bg-gray-100 transition-colors hover:shadow-sm"
-              >
-                {project.category}
-              </Link>
+              <div className="flex flex-wrap gap-1.5">
+                {project.category?.map((cat: string, index: number) => (
+                  <Link
+                    key={index}
+                    href={`/?query=${cat.toLowerCase()}`}
+                    className="text-xs px-2 py-1 bg-gray-50 text-gray-600 rounded-full hover:bg-gray-100 transition-colors hover:shadow-sm"
+                  >
+                    {cat}
+                  </Link>
+                ))}
+              </div>
             </div>
 
             <div>

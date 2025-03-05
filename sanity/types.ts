@@ -158,7 +158,7 @@ export type Project = {
   };
   views?: number;
   description?: string;
-  category?: string;
+  category?: string[];
   image?: string;
   pitch?: string;
 };
@@ -185,5 +185,20 @@ export type Author = {
 
 export type Markdown = string;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | SanityAssetSourceData | Playlist | Project | Slug | Author | Markdown;
+export type AllSanitySchemaTypes =
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityImageHotspot
+  | SanityImageCrop
+  | SanityFileAsset
+  | SanityImageAsset
+  | SanityImageMetadata
+  | Geopoint
+  | SanityAssetSourceData
+  | Playlist
+  | Project
+  | Slug
+  | Author
+  | Markdown;
 export declare const internalGroqTypeReferenceTo: unique symbol;

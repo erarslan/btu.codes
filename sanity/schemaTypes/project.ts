@@ -31,9 +31,13 @@ export const project = defineType({
     }),
     defineField({
       name: "category",
-      type: "string",
+      type: "array",
+      of: [{ type: "string" }],
       validation: (Rule) =>
-        Rule.min(1).max(20).required().error("Category is required"),
+        Rule.min(1)
+          .max(5)
+          .required()
+          .error("En az 1, en fazla 5 kategori seçmelisiniz"),
     }),
     defineField({
       name: "image",

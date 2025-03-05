@@ -71,20 +71,27 @@ const ProjectCard = ({ project }: { project: ProjectCardType }) => {
           </Link>
         </div>
 
-        <div className="flex items-center justify-between pt-3.5 border-t border-gray-100">
-          <Link
-            href={`/?query=${category?.toLowerCase()}`}
-            className="text-sm px-3 py-1 bg-gray-50 text-gray-600 rounded-full hover:bg-gray-100 transition-colors hover:shadow-sm"
-          >
-            {category}
-          </Link>
-          <Button
-            asChild
-            variant="default"
-            className="bg-btu_primary hover:bg-btu_primary/90 rounded-lg shadow-sm hover:shadow transition"
-          >
-            <Link href={`/proje/${_id}`}>Proje Detayı</Link>
-          </Button>
+        <div className="flex flex-col gap-2 pt-3.5 border-t border-gray-100">
+          <div className="flex flex-wrap gap-1.5">
+            {category?.map((cat, index) => (
+              <Link
+                key={index}
+                href={`/?query=${cat.toLowerCase()}`}
+                className="text-xs px-2 py-1 bg-gray-50 text-gray-600 rounded-full hover:bg-gray-100 transition-colors hover:shadow-sm"
+              >
+                {cat}
+              </Link>
+            ))}
+          </div>
+          <div className="flex justify-end">
+            <Button
+              asChild
+              variant="default"
+              className="bg-btu_primary hover:bg-btu_primary/90 rounded-lg shadow-sm hover:shadow transition"
+            >
+              <Link href={`/proje/${_id}`}>Proje Detayı</Link>
+            </Button>
+          </div>
         </div>
       </div>
     </li>
