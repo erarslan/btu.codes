@@ -19,7 +19,7 @@ export const PROGRAMMING_LANGUAGES = [
   "C/C++",
   "Java",
   "Python",
-  "JavaScript",
+  "JavaScript/TypeScript",
   "Flutter",
   "C#",
   "PHP",
@@ -28,5 +28,4 @@ export const PROGRAMMING_LANGUAGES = [
   "Kotlin",
   "Go",
   "Rust",
-  "TypeScript",
 ];
