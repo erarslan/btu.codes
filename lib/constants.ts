@@ -10,6 +10,9 @@ export const DEVELOPMENT_AREAS = [
   "Yapay Zeka",
   "Veri Bilimi",
   "Siber Güvenlik",
+  "Veri Tabanı",
+  "Bilgi Güvenliği",
+  "Sistem Programcılığı",
 ];
 
 export const PROGRAMMING_LANGUAGES = [
@@ -18,4 +21,12 @@ export const PROGRAMMING_LANGUAGES = [
   "Python",
   "JavaScript",
   "Flutter",
+  "C#",
+  "PHP",
+  "Ruby",
+  "Swift",
+  "Kotlin",
+  "Go",
+  "Rust",
+  "TypeScript",
 ];

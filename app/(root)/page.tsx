@@ -11,8 +11,6 @@ export default async function Home({
   const query = (await searchParams).query;
   const params = { search: query || null };
 
-  const session = await auth();
-
   const { data: projects } = await sanityFetch({
     query: PROJECTS_QUERY,
     params,
