@@ -87,7 +87,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           </div>
 
           <div className="md:col-span-2 space-y-6">
-            <div className="flex items-center justify-between">
+            <div className="sm:flex sm:items-center sm:justify-between">
               <Link
                 href={`/kullanici/${project.author._id}`}
                 className="flex items-center gap-3 group"
@@ -109,7 +109,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 </div>
               </Link>
 
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-1.5 mt-4 sm:mt-0">
                 {project.category?.map((cat: string, index: number) => (
                   <Link
                     key={index}
