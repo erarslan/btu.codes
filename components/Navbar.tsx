@@ -46,7 +46,7 @@ const Navbar = async () => {
             </Link>
 
             <button
-              className="nav-button flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:justify-start gap-1.5 lg:gap-1.5 whitespace-nowrap rounded-full hover:bg-white/50 p-2.5 sm:p-2 lg:p-2.5"
+              className="nav-button flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:justify-start gap-1.5 lg:gap-1.5 whitespace-nowrap rounded-fullp-2.5 sm:p-2 lg:p-2.5"
               onClick={async () => {
                 "use server";
                 await signOut({ redirectTo: "/" });
@@ -59,7 +59,7 @@ const Navbar = async () => {
           </>
         ) : (
           <button
-            className="nav-button flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:justify-start gap-1.5 lg:gap-1.5 whitespace-nowrap rounded-full hover:bg-white/50 p-2.5 sm:p-2 lg:p-2.5"
+            className="nav-button flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:justify-start gap-1.5 lg:gap-1.5 whitespace-nowrap rounded-full p-2.5 sm:p-2 lg:p-2.5"
             onClick={async () => {
               "use server";
               await signIn("github");

@@ -86,10 +86,12 @@
 
   .nav-button {
     @apply px-4 py-1.5 rounded-full transition-all duration-300 border-white/10;
+    transform: translateY(0);
   }
 
   .nav-button:hover {
-    @apply bg-white/30 -translate-y-0.5 shadow-lg shadow-black/5;
+    @apply bg-white/30 shadow-lg shadow-black/5;
+    transform: translateY(-2px);
   }
 
   .hero-gradient {
