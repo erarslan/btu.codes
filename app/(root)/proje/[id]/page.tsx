@@ -128,7 +128,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
               </h3>
               {parsedContent ? (
                 <article
-                  className="prose prose-blue max-w-none prose-headings:text-btu_primary prose-a:text-btu_secondary"
+                  className="prose max-w-none prose-headings:text-btu_primary prose-a:text-btu_secondary"
                   dangerouslySetInnerHTML={{ __html: parsedContent }}
                 />
               ) : (
