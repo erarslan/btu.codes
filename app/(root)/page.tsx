@@ -39,7 +39,7 @@ export default async function Home({
           </p>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-5">
-            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 sm:p-6 rounded-2xl bg-gray-50/50">
+            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 sm:p-6 rounded-2xl">
               {projects?.length > 0 ? (
                 projects.map((project: ProjectCardType) => (
                   <ProjectCard key={project?._id} project={project} />
