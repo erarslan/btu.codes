@@ -22,7 +22,6 @@ import {
 import {
   TERM_PROJECT,
   DEVELOPMENT_AREAS,
-  TECH_DOMAINS,
   PROGRAMMING_LANGUAGES,
 } from "@/lib/constants";
 
@@ -52,9 +51,6 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
   const [selectedDevArea, setSelectedDevArea] = useState<string | undefined>(
     initialData?.category?.find((cat) => DEVELOPMENT_AREAS.includes(cat))
   );
-  const [selectedTechDomain, setSelectedTechDomain] = useState<
-    string | undefined
-  >(initialData?.category?.find((cat) => TECH_DOMAINS.includes(cat)));
   const [selectedLanguage, setSelectedLanguage] = useState<string | undefined>(
     initialData?.category?.find((cat) => PROGRAMMING_LANGUAGES.includes(cat))
   );
@@ -78,10 +74,6 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
 
       if (selectedDevArea) {
         updatedCategories.push(selectedDevArea);
-      }
-
-      if (selectedTechDomain) {
-        updatedCategories.push(selectedTechDomain);
       }
 
       if (selectedLanguage) {
@@ -174,7 +166,7 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
   };
 
   const isCategorySelectionValid = () => {
-    return selectedDevArea && selectedTechDomain && selectedLanguage;
+    return selectedDevArea && selectedLanguage;
   };
 
   const isFormValid = () => {
@@ -278,28 +270,6 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
               {DEVELOPMENT_AREAS.map((area) => (
                 <SelectItem key={area} value={area}>
                   {area}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700">
-            Teknoloji Alanı
-          </label>
-          <Select
-            value={selectedTechDomain}
-            onValueChange={setSelectedTechDomain}
-            required
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Teknoloji alanı seçin" />
-            </SelectTrigger>
-            <SelectContent>
-              {TECH_DOMAINS.map((domain) => (
-                <SelectItem key={domain} value={domain}>
-                  {domain}
                 </SelectItem>
               ))}
             </SelectContent>

@@ -1,9 +1,5 @@
 import { z } from "zod";
-import {
-  DEVELOPMENT_AREAS,
-  TECH_DOMAINS,
-  PROGRAMMING_LANGUAGES,
-} from "./constants";
+import { DEVELOPMENT_AREAS, PROGRAMMING_LANGUAGES } from "./constants";
 
 export const formSchema = z.object({
   title: z
@@ -16,26 +12,19 @@ export const formSchema = z.object({
     .max(500, "Proje açıklaması en fazla 500 karakter olabilir."),
   category: z.array(z.string()).refine(
     (categories) => {
-      // En az bir geliştirme alanı seçilmiş mi?
       const hasDevArea = categories.some((cat) =>
         DEVELOPMENT_AREAS.includes(cat)
       );
 
-      // En az bir teknoloji alanı seçilmiş mi?
-      const hasTechDomain = categories.some((cat) =>
-        TECH_DOMAINS.includes(cat)
-      );
-
-      // En az bir programlama dili seçilmiş mi?
       const hasLanguage = categories.some((cat) =>
         PROGRAMMING_LANGUAGES.includes(cat)
       );
 
-      return hasDevArea && hasTechDomain && hasLanguage;
+      return hasDevArea && hasLanguage;
     },
     {
       message:
-        "Lütfen her kategori grubundan (Geliştirme Alanı, Teknoloji Alanı, Programlama Dili) bir seçim yapınız.",
+        "Lütfen her kategori grubundan (Geliştirme Alanı, Programlama Dili) bir seçim yapınız.",
     }
   ),
   link: z

@@ -7,9 +7,10 @@ export const DEVELOPMENT_AREAS = [
   "Blockchain",
   "IoT",
   "Robotik",
+  "Yapay Zeka",
+  "Veri Bilimi",
+  "Siber Güvenlik",
 ];
-
-export const TECH_DOMAINS = ["Yapay Zeka", "Veri Bilimi", "Siber Güvenlik"];
 
 export const PROGRAMMING_LANGUAGES = [
   "C/C++",
