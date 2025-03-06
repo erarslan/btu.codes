@@ -26,7 +26,8 @@ const Navbar = async () => {
           <>
             <Link
               href="/proje/ekle"
-              className="nav-link flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:justify-start gap-1.5 lg:gap-1.5 whitespace-nowrap rounded-full hover:bg-white/50 p-2.5 sm:p-2 lg:p-2.5"
+              className="nav-link flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:justify-start gap-1.5 lg:gap-1.5 whitespace-nowrap rounded-full
+               p-2.5 sm:p-2 lg:p-2.5"
               title="Proje Ekle"
             >
               <PlusCircle size={24} className="sm:size-[20px] lg:size-[22px]" />
@@ -35,7 +36,7 @@ const Navbar = async () => {
 
             <Link
               href={`/kullanici/${session.id}`}
-              className="nav-link flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:justify-start gap-1.5 lg:gap-1.5 whitespace-nowrap rounded-full hover:bg-white/50 p-2.5 sm:p-2 lg:p-2.5"
+              className="nav-link flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:justify-start gap-1.5 lg:gap-1.5 whitespace-nowrap rounded-full p-2.5 sm:p-2 lg:p-2.5"
               title={session.user.name || "Profil"}
             >
               <User size={24} className="sm:size-[20px] lg:size-[22px]" />
