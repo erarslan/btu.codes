@@ -87,7 +87,7 @@ const ProjectCard = ({ project }: { project: ProjectCardType }) => {
           <div className="flex justify-between items-center">
             <Button
               asChild
-              className="bg-gray-800 hover:bg-gray-700 text-white p-2"
+              className="bg-btu_primary hover:bg-btu_primary/90 text-white p-2 transition-all duration-300 hover:shadow-md"
             >
               <a
                 href={githubRepo}

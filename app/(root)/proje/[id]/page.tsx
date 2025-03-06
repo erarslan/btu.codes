@@ -72,7 +72,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             </div>
             <Button
               asChild
-              className="mt-4 w-full bg-gray-800 hover:bg-gray-700"
+              className="mt-4 w-full bg-btu_primary hover:bg-btu_primary/90 transition-all duration-300 shadow-sm hover:shadow-md"
             >
               <a
                 href={project.githubRepo}
