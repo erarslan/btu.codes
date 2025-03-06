@@ -5,20 +5,26 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import MDEditor from "@uiw/react-md-editor";
 import { Button } from "./ui/button";
-import {
-  Send,
-  Image as ImageIcon,
-  Type,
-  FileText,
-  AlertCircle,
-  Github,
-} from "lucide-react";
+import { Send, Image as ImageIcon, Type, FileText, Github } from "lucide-react";
 import { formSchema } from "@/lib/validation";
 import { z } from "zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { createProject, updateProject } from "@/lib/actions";
 import { Checkbox } from "./ui/checkbox";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import {
+  TERM_PROJECT,
+  DEVELOPMENT_AREAS,
+  TECH_DOMAINS,
+  PROGRAMMING_LANGUAGES,
+} from "@/lib/constants";
 
 interface ProjectFormProps {
   initialData?: {
@@ -33,34 +39,58 @@ interface ProjectFormProps {
   isEditing?: boolean;
 }
 
-const CATEGORIES = [
-  "Dönem Projesi",
-  "Web Geliştirme",
-  "Mobil Geliştirme",
-  "Yapay Zeka",
-  "Veri Bilimi",
-  "Oyun Geliştirme",
-  "Siber Güvenlik",
-  "Blockchain",
-  "IoT",
-  "Robotik",
-  "C/C++",
-  "Java",
-  "Python",
-  "JavaScript",
-  "Flutter",
-];
-
 const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
   const [pitch, setPitch] = useState(initialData?.pitch || "");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
     initialData?.category || []
   );
+
+  const [isTermProject, setIsTermProject] = useState(
+    initialData?.category?.includes(TERM_PROJECT) || false
+  );
+  const [selectedDevArea, setSelectedDevArea] = useState<string | undefined>(
+    initialData?.category?.find((cat) => DEVELOPMENT_AREAS.includes(cat))
+  );
+  const [selectedTechDomain, setSelectedTechDomain] = useState<
+    string | undefined
+  >(initialData?.category?.find((cat) => TECH_DOMAINS.includes(cat)));
+  const [selectedLanguage, setSelectedLanguage] = useState<string | undefined>(
+    initialData?.category?.find((cat) => PROGRAMMING_LANGUAGES.includes(cat))
+  );
+
+  const [title, setTitle] = useState(initialData?.title || "");
+  const [description, setDescription] = useState(
+    initialData?.description || ""
+  );
+  const [imageUrl, setImageUrl] = useState(initialData?.image || "");
+  const [githubRepo, setGithubRepo] = useState(initialData?.githubRepo || "");
+
   const router = useRouter();
 
   const handleFormSubmit = async (prevState: any, formData: FormData) => {
     try {
+      const updatedCategories = [];
+
+      if (isTermProject) {
+        updatedCategories.push(TERM_PROJECT);
+      }
+
+      if (selectedDevArea) {
+        updatedCategories.push(selectedDevArea);
+      }
+
+      if (selectedTechDomain) {
+        updatedCategories.push(selectedTechDomain);
+      }
+
+      if (selectedLanguage) {
+        updatedCategories.push(selectedLanguage);
+      }
+
+      // Kategorileri state'e kaydet
+      setSelectedCategories(updatedCategories);
+
       const formDataWithCategories = new FormData();
       for (const [key, value] of formData.entries()) {
         if (key !== "category") {
@@ -70,13 +100,13 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
 
       formDataWithCategories.append(
         "category",
-        JSON.stringify(selectedCategories)
+        JSON.stringify(updatedCategories)
       );
 
       const formValues = {
         title: formData.get("title") as string,
         description: formData.get("description") as string,
-        category: selectedCategories,
+        category: updatedCategories,
         link: formData.get("link") as string,
         githubRepo: formData.get("githubRepo") as string,
         pitch,
@@ -139,18 +169,23 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
     status: "INITIAL",
   });
 
-  const toggleCategory = (category: string) => {
-    const isSelected = selectedCategories.includes(category);
+  const toggleTermProject = (checked: boolean) => {
+    setIsTermProject(checked);
+  };
 
-    if (isSelected) {
-      setSelectedCategories(selectedCategories.filter((c) => c !== category));
-    } else {
-      if (selectedCategories.length < 5) {
-        setSelectedCategories([...selectedCategories, category]);
-      } else {
-        toast.error("En fazla 5 kategori seçebilirsiniz.");
-      }
-    }
+  const isCategorySelectionValid = () => {
+    return selectedDevArea && selectedTechDomain && selectedLanguage;
+  };
+
+  const isFormValid = () => {
+    return (
+      title.trim().length >= 3 &&
+      description.trim().length >= 10 &&
+      imageUrl.trim().length > 0 &&
+      githubRepo.trim().length > 0 &&
+      pitch.trim().length >= 10 &&
+      isCategorySelectionValid()
+    );
   };
 
   return (
@@ -176,6 +211,7 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
             defaultValue={initialData?.title || ""}
             placeholder="Projenizin başlığını girin"
             className="pl-10 focus:ring-btu_primary focus:border-btu_primary"
+            onChange={(e) => setTitle(e.target.value)}
           />
         </div>
         {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
@@ -199,6 +235,7 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
             defaultValue={initialData?.description || ""}
             placeholder="Projenizi kısaca açıklayın"
             className="pl-10 min-h-24 focus:ring-btu_primary focus:border-btu_primary resize-none"
+            onChange={(e) => setDescription(e.target.value)}
           />
         </div>
         {errors.description && (
@@ -206,33 +243,91 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
         )}
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-4">
         <label className="block text-sm font-medium text-gray-700">
-          Proje Kategorisi
+          Proje Kategorileri
         </label>
-        {selectedCategories.length === 0 && (
-          <div className="flex items-center text-red-500 text-sm">
-            <AlertCircle className="size-4 mr-1" />
-            <span>En az bir kategori seçmelisiniz!</span>
-          </div>
-        )}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-2">
-          {CATEGORIES.map((category) => (
-            <div key={category} className="flex items-center space-x-2">
-              <Checkbox
-                id={`category-${category}`}
-                checked={selectedCategories.includes(category)}
-                onCheckedChange={() => toggleCategory(category)}
-              />
-              <label
-                htmlFor={`category-${category}`}
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                {category}
-              </label>
-            </div>
-          ))}
+
+        <div className="flex items-center space-x-2 mb-4">
+          <Checkbox
+            id="term-project"
+            checked={isTermProject}
+            onCheckedChange={(checked) => toggleTermProject(checked as boolean)}
+          />
+          <label
+            htmlFor="term-project"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            {TERM_PROJECT}
+          </label>
         </div>
+
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-gray-700">
+            Geliştirme Alanı
+          </label>
+          <Select
+            value={selectedDevArea}
+            onValueChange={setSelectedDevArea}
+            required
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Geliştirme alanı seçin" />
+            </SelectTrigger>
+            <SelectContent>
+              {DEVELOPMENT_AREAS.map((area) => (
+                <SelectItem key={area} value={area}>
+                  {area}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-gray-700">
+            Teknoloji Alanı
+          </label>
+          <Select
+            value={selectedTechDomain}
+            onValueChange={setSelectedTechDomain}
+            required
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Teknoloji alanı seçin" />
+            </SelectTrigger>
+            <SelectContent>
+              {TECH_DOMAINS.map((domain) => (
+                <SelectItem key={domain} value={domain}>
+                  {domain}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-gray-700">
+            Programlama Dili
+          </label>
+          <Select
+            value={selectedLanguage}
+            onValueChange={setSelectedLanguage}
+            required
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Programlama dili seçin" />
+            </SelectTrigger>
+            <SelectContent>
+              {PROGRAMMING_LANGUAGES.map((language) => (
+                <SelectItem key={language} value={language}>
+                  {language}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
         {errors.category && (
           <p className="text-red-500 text-sm">{errors.category}</p>
         )}
@@ -256,6 +351,7 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
             defaultValue={initialData?.image || ""}
             placeholder="Projenizi temsil eden bir resim linki ekleyin"
             className="pl-10 focus:ring-btu_primary focus:border-btu_primary"
+            onChange={(e) => setImageUrl(e.target.value)}
           />
         </div>
         {errors.link && <p className="text-red-500 text-sm">{errors.link}</p>}
@@ -279,6 +375,7 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
             defaultValue={initialData?.githubRepo || ""}
             placeholder="Projenizin GitHub repo linkini ekleyin"
             className="pl-10 focus:ring-btu_primary focus:border-btu_primary"
+            onChange={(e) => setGithubRepo(e.target.value)}
           />
         </div>
         {errors.githubRepo && (
@@ -314,7 +411,7 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
       <div className="flex justify-center mt-8">
         <Button
           type="submit"
-          disabled={isPending}
+          disabled={isPending || !isFormValid()}
           className="px-6 py-3 h-auto text-base flex items-center justify-center gap-2 bg-btu_primary hover:bg-btu_primary/90 text-white transition-all duration-300"
         >
           {isPending
