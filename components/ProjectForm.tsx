@@ -171,11 +171,11 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
 
   const isFormValid = () => {
     return (
-      title.trim().length >= 3 &&
-      description.trim().length >= 10 &&
+      title.trim().length > 0 &&
+      description.trim().length > 0 &&
       imageUrl.trim().length > 0 &&
       githubRepo.trim().length > 0 &&
-      pitch.trim().length >= 10 &&
+      pitch.trim().length > 0 &&
       isCategorySelectionValid()
     );
   };
