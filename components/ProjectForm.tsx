@@ -289,7 +289,7 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
               </SelectContent>
             </Select>
             {isTermProject && !selectedCourse && (
-              <p className="text-red-500 text-sm">Lütfen bir ders seçin</p>
+              <p className="text-red-500 text-sm">Lütfen bir ders seçin.</p>
             )}
           </div>
         )}
