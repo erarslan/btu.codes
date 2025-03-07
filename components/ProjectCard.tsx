@@ -1,5 +1,5 @@
 import { cn, formatDate } from "@/lib/utils";
-import { EyeIcon, Github } from "lucide-react";
+import { ArrowRight, EyeIcon, Github } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -84,27 +84,30 @@ const ProjectCard = ({ project }: { project: ProjectCardType }) => {
               </Link>
             ))}
           </div>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mt-1">
             <Button
               asChild
-              className="bg-btu_primary hover:bg-btu_primary/90 text-white p-2 transition-all duration-300 hover:shadow-md"
+              className="bg-btu_primary hover:bg-btu_primary/90 p-2 transition-all duration-300 hover:shadow-md"
             >
-              <a
+              <Link
                 href={githubRepo}
                 target="_blank"
                 className="flex items-center gap-2"
               >
+                <span className="max-sm:text-xs">GitHub Repo</span>
                 <Github />
-                <span className="text-sm">GitHub Repo</span>
-              </a>
+              </Link>
             </Button>
 
             <Button
               asChild
               variant="default"
-              className="bg-btu_primary hover:bg-btu_primary/90 rounded-lg shadow-sm hover:shadow transition"
+              className="bg-btu_primary hover:bg-btu_primary/90 p-2 transition-all duration-300 hover:shadow-md"
             >
-              <Link href={`/proje/${_id}`}>Proje Detayı</Link>
+              <Link href={`/proje/${_id}`}>
+                <span className="max-sm:text-xs">Proje Detayı</span>
+                <ArrowRight />
+              </Link>
             </Button>
           </div>
         </div>

@@ -12,7 +12,6 @@ export const DEVELOPMENT_AREAS = [
   "Siber Güvenlik",
   "Veri Tabanı",
   "Bilgi Güvenliği",
-  "Sistem Programcılığı",
 ];
 
 export const PROGRAMMING_LANGUAGES = [
@@ -23,9 +22,7 @@ export const PROGRAMMING_LANGUAGES = [
   "Flutter",
   "C#",
   "PHP",
-  "Ruby",
   "Swift",
-  "Kotlin",
   "Go",
   "Rust",
 ];
