@@ -33,7 +33,6 @@ export const COURSES = [
   "Veri Yapıları",
   "Veritabanı Yönetim Sistemleri",
   "Web Programlama",
-  "Makine Öğrenmesi",
   "Bilgisayar Ağları",
   "İşletim Sistemleri",
   "Bilgisayar Mimarisi",
