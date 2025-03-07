@@ -27,25 +27,6 @@ export const formSchema = z.object({
         "Lütfen her kategori grubundan (Geliştirme Alanı, Programlama Dili) bir seçim yapınız.",
     }
   ),
-  link: z
-    .string()
-    .url("Geçerli bir resim URL'i giriniz.")
-    .refine(
-      async (url) => {
-        try {
-          const res = await fetch(url, { method: "HEAD" });
-          const contentType = res.headers.get("content-type");
-
-          return contentType?.startsWith("image/");
-        } catch {
-          return false;
-        }
-      },
-      {
-        message:
-          "Girilen URL bir resim dosyasına ait olmalıdır. Lütfen geçerli bir resim URL'i giriniz.",
-      }
-    ),
   githubRepo: z
     .string()
     .url("Geçerli bir URL giriniz.")

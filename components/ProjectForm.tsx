@@ -31,7 +31,13 @@ interface ProjectFormProps {
     title: string;
     description: string;
     category: string[];
-    image: string;
+    image?: {
+      _type: string;
+      asset: {
+        _ref: string;
+        _type: string;
+      };
+    };
     pitch: string;
     githubRepo: string;
   };
@@ -59,7 +65,7 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
   const [description, setDescription] = useState(
     initialData?.description || ""
   );
-  const [imageUrl, setImageUrl] = useState(initialData?.image || "");
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [githubRepo, setGithubRepo] = useState(initialData?.githubRepo || "");
 
   const router = useRouter();
@@ -80,14 +86,17 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
         updatedCategories.push(selectedLanguage);
       }
 
-      // Kategorileri state'e kaydet
       setSelectedCategories(updatedCategories);
 
       const formDataWithCategories = new FormData();
       for (const [key, value] of formData.entries()) {
-        if (key !== "category") {
+        if (key !== "category" && key !== "image") {
           formDataWithCategories.append(key, value);
         }
+      }
+
+      if (imageFile) {
+        formDataWithCategories.append("image", imageFile);
       }
 
       formDataWithCategories.append(
@@ -99,7 +108,6 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
         title: formData.get("title") as string,
         description: formData.get("description") as string,
         category: updatedCategories,
-        link: formData.get("link") as string,
         githubRepo: formData.get("githubRepo") as string,
         pitch,
       };
@@ -173,7 +181,6 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
     return (
       title.trim().length > 0 &&
       description.trim().length > 0 &&
-      imageUrl.trim().length > 0 &&
       githubRepo.trim().length > 0 &&
       pitch.trim().length > 0 &&
       isCategorySelectionValid()
@@ -305,26 +312,32 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
 
       <div className="space-y-2">
         <label
-          htmlFor="link"
+          htmlFor="image"
           className="block text-sm font-medium text-gray-700"
         >
-          Resim Linki
+          Proje Resmi
         </label>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
             <ImageIcon className="size-4" />
           </div>
           <Input
-            id="link"
-            name="link"
-            required
-            defaultValue={initialData?.image || ""}
-            placeholder="Projenizi temsil eden bir resim linki ekleyin"
+            id="image"
+            name="image"
+            type="file"
+            accept="image/*"
             className="pl-10 focus:ring-btu_primary focus:border-btu_primary"
-            onChange={(e) => setImageUrl(e.target.value)}
+            onChange={(e) => {
+              if (e.target.files && e.target.files.length > 0) {
+                setImageFile(e.target.files[0]);
+              }
+            }}
           />
         </div>
-        {errors.link && <p className="text-red-500 text-sm">{errors.link}</p>}
+        <p className="text-xs text-gray-500">
+          Resim yüklemezseniz, varsayılan bir resim kullanılacaktır.
+        </p>
+        {errors.image && <p className="text-red-500 text-sm">{errors.image}</p>}
       </div>
 
       <div className="space-y-2">

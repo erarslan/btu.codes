@@ -159,7 +159,13 @@ export type Project = {
   views?: number;
   description?: string;
   category?: string[];
-  image?: string;
+  image?: {
+    _type: string;
+    asset: {
+      _ref: string;
+      _type: string;
+    };
+  };
   githubRepo: string;
   pitch?: string;
 };

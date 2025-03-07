@@ -19,16 +19,26 @@ export const createProject = async (
     });
   }
 
-  const { title, description, category, link, githubRepo } = Object.fromEntries(
-    Array.from(form).filter(([key]) => key !== "pitch")
+  const { title, description, category, githubRepo } = Object.fromEntries(
+    Array.from(form).filter(([key]) => key !== "pitch" && key !== "image")
   );
 
   const parsedCategory = JSON.parse(category as string);
-
   const slug = slugify(title as string, { lower: true, strict: true });
+  const imageFile = form.get("image") as File | null;
 
   try {
-    const project = {
+    let imageAsset;
+
+    if (imageFile && imageFile.size > 0) {
+      const imageBuffer = await imageFile.arrayBuffer();
+      const buffer = Buffer.from(imageBuffer);
+      imageAsset = await writeClient.assets.upload("image", buffer, {
+        filename: imageFile.name,
+      });
+    }
+
+    const project: any = {
       title,
       author: {
         _type: "reference",
@@ -40,10 +50,19 @@ export const createProject = async (
       },
       description,
       category: parsedCategory,
-      image: link,
       githubRepo,
       pitch,
     };
+
+    if (imageAsset) {
+      project.image = {
+        _type: "image",
+        asset: {
+          _type: "reference",
+          _ref: imageAsset._id,
+        },
+      };
+    }
 
     const result = await writeClient.create({
       _type: "project",
@@ -80,16 +99,26 @@ export const updateProject = async (
     });
   }
 
-  const { title, description, category, link, githubRepo } = Object.fromEntries(
-    Array.from(form).filter(([key]) => key !== "pitch")
+  const { title, description, category, githubRepo } = Object.fromEntries(
+    Array.from(form).filter(([key]) => key !== "pitch" && key !== "image")
   );
 
   const parsedCategory = JSON.parse(category as string);
-
   const slug = slugify(title as string, { lower: true, strict: true });
+  const imageFile = form.get("image") as File | null;
 
   try {
-    const project = {
+    let imageAsset;
+
+    if (imageFile && imageFile.size > 0) {
+      const imageBuffer = await imageFile.arrayBuffer();
+      const buffer = Buffer.from(imageBuffer);
+      imageAsset = await writeClient.assets.upload("image", buffer, {
+        filename: imageFile.name,
+      });
+    }
+
+    const project: any = {
       title,
       slug: {
         _type: "slug",
@@ -97,10 +126,19 @@ export const updateProject = async (
       },
       description,
       category: parsedCategory,
-      image: link,
       githubRepo,
       pitch,
     };
+
+    if (imageAsset) {
+      project.image = {
+        _type: "image",
+        asset: {
+          _type: "reference",
+          _ref: imageAsset._id,
+        },
+      };
+    }
 
     const result = await writeClient.patch(projectId).set(project).commit();
 

@@ -41,8 +41,11 @@ export const project = defineType({
     }),
     defineField({
       name: "image",
-      type: "url",
-      validation: (Rule) => Rule.required().error("Image is required"),
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+      validation: (Rule) => Rule.optional(),
     }),
     defineField({
       name: "githubRepo",

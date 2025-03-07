@@ -1,4 +1,4 @@
-import { formatDate } from "@/lib/utils";
+import { formatDate, getSanityImageUrl } from "@/lib/utils";
 import { client } from "@/sanity/lib/client";
 import { PROJECT_BY_ID_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
@@ -34,6 +34,10 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const parsedContent = md.render(project?.pitch || "");
   const isOwner = session && session.id === project.author._id;
 
+  const imageUrl = project.image
+    ? getSanityImageUrl(project.image)
+    : "/placeholder.svg";
+
   return (
     <main className="max-w-5xl mx-auto px-4 pt-28 pb-8 md:pt-32 md:pb-12">
       <section className="mb-8">
@@ -63,7 +67,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           <div className="md:col-span-1">
             <div className="relative h-64 w-full rounded-lg overflow-hidden">
               <Image
-                src={project.image}
+                src={imageUrl}
                 alt={project.title}
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-300"

@@ -1,4 +1,4 @@
-import { cn, formatDate } from "@/lib/utils";
+import { cn, formatDate, getSanityImageUrl } from "@/lib/utils";
 import { ArrowRight, EyeIcon, Github } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -21,12 +21,14 @@ const ProjectCard = ({ project }: { project: ProjectCardType }) => {
     githubRepo,
   } = project;
 
+  const imageUrl = image ? getSanityImageUrl(image) : "/placeholder.svg";
+
   return (
     <li className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden">
       <div className="h-44 w-full p-2">
         <div className="relative h-full w-full rounded-lg overflow-hidden">
           <Image
-            src={image!}
+            src={imageUrl}
             alt={title!}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
