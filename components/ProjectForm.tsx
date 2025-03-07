@@ -271,7 +271,7 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
           />
           <label
             htmlFor="term-project"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            className="text-sm font-medium leading-none"
           >
             {TERM_PROJECT}
           </label>
@@ -360,22 +360,47 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
         >
           Proje Resmi (İsteğe Bağlı)
         </label>
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3  text-gray-500">
-            <ImageIcon className="size-4" />
+        <div className="relative flex flex-col space-y-2">
+          <div className="relative flex items-center w-full">
+            <div className="absolute left-3 text-gray-500">
+              <ImageIcon className="size-4" />
+            </div>
+            <div className="w-full overflow-hidden">
+              <label
+                htmlFor="image"
+                className="flex items-center cursor-pointer"
+              >
+                <div className="bg-white border rounded-md py-2 px-3 pl-10 w-full text-sm text-gray-500 truncate min-h-10">
+                  {imageFile ? imageFile.name : "Dosya seçilmedi"}
+                </div>
+              </label>
+              <Input
+                id="image"
+                name="image"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => {
+                  if (e.target.files && e.target.files.length > 0) {
+                    setImageFile(e.target.files[0]);
+                  }
+                }}
+              />
+            </div>
           </div>
-          <Input
-            id="image"
-            name="image"
-            type="file"
-            accept="image/*"
-            className="pl-10 focus:ring-btu_primary focus:border-btu_primary"
-            onChange={(e) => {
-              if (e.target.files && e.target.files.length > 0) {
-                setImageFile(e.target.files[0]);
-              }
-            }}
-          />
+          {imageFile && (
+            <div className="flex items-center">
+              <Button
+                type="button"
+                variant="destructive"
+                size="sm"
+                className="h-auto py-1"
+                onClick={() => setImageFile(null)}
+              >
+                Kaldır
+              </Button>
+            </div>
+          )}
         </div>
         <p className="text-xs text-gray-500">
           Resim yüklemezseniz, varsayılan bir resim kullanılacaktır.
