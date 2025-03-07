@@ -13,6 +13,7 @@ import ProjectCard, { ProjectCardType } from "@/components/ProjectCard";
 import { Award, Edit, Github, ExternalLink } from "lucide-react";
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
+import DeleteProjectButton from "@/components/DeleteProjectButton";
 
 const md = markdownit();
 
@@ -52,12 +53,18 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             <p className="text-lg text-gray-600">{project.description}</p>
           </div>
           {isOwner && (
-            <Link href={`/proje/${id}/duzenle`}>
-              <Button className="flex items-center gap-2 bg-btu_primary hover:bg-btu_primary/90 shrink-0">
-                <Edit className="size-4" />
-                Düzenle
-              </Button>
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link href={`/proje/${id}/duzenle`}>
+                <Button className="flex items-center gap-2 bg-btu_primary hover:bg-btu_primary/90 shrink-0">
+                  <Edit className="size-4" />
+                  Düzenle
+                </Button>
+              </Link>
+              <DeleteProjectButton
+                projectId={id}
+                projectTitle={project.title}
+              />
+            </div>
           )}
         </div>
       </section>

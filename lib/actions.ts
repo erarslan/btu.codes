@@ -156,3 +156,31 @@ export const updateProject = async (
     });
   }
 };
+
+export const deleteProject = async (projectId: string) => {
+  const session = await auth();
+
+  if (!session) {
+    return parseServerActionResponse({
+      error: "Not signed in",
+      status: "ERROR",
+    });
+  }
+
+  try {
+    const result = await writeClient.delete(projectId);
+
+    return parseServerActionResponse({
+      ...result,
+      error: "",
+      status: "SUCCESS",
+    });
+  } catch (error) {
+    console.log(error);
+
+    return parseServerActionResponse({
+      error: JSON.stringify(error),
+      status: "ERROR",
+    });
+  }
+};
