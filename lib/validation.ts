@@ -34,6 +34,7 @@ export const formSchema = z.object({
       /github\.com\/[\w-]+\/[\w-]+/,
       "Geçerli bir GitHub repo URL'i giriniz."
     ),
+  email: z.string().email("Geçerli bir e-posta adresi giriniz.").optional(),
   pitch: z
     .string()
     .min(10, "Detaylı proje açıklaması en az 10 karakter olmalıdır."),

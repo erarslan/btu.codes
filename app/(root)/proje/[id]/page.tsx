@@ -10,7 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import View from "@/components/View";
 import { PLAYLIST_BY_SLUG_QUERY } from "@/sanity/lib/queries";
 import ProjectCard, { ProjectCardType } from "@/components/ProjectCard";
-import { Award, Edit, Github, ExternalLink } from "lucide-react";
+import { Award, Edit, Github, ExternalLink, Mail } from "lucide-react";
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import DeleteProjectButton from "@/components/DeleteProjectButton";
@@ -95,6 +95,22 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 <ExternalLink />
               </a>
             </Button>
+
+            {project.email && (
+              <Button
+                asChild
+                className="mt-2 w-full bg-white text-btu_primary border-2 border-btu_primary hover:bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md"
+              >
+                <a
+                  href={`mailto:${project.email}`}
+                  className="flex items-center justify-center gap-2"
+                >
+                  <Mail />
+                  <span>İletişim E-postası</span>
+                  <ExternalLink />
+                </a>
+              </Button>
+            )}
           </div>
 
           <div className="md:col-span-2 space-y-6">

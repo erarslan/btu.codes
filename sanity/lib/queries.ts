@@ -13,7 +13,8 @@ export const PROJECTS_QUERY =
   description,
   category,
   image,
-  githubRepo
+  githubRepo,
+  email
 }`);
 
 export const PROJECT_BY_ID_QUERY =
@@ -30,6 +31,7 @@ export const PROJECT_BY_ID_QUERY =
   category,
   image,
   githubRepo,
+  email,
   pitch
 }`);
 
@@ -71,7 +73,8 @@ export const PROJECTS_BY_AUTHOR_ID_QUERY =
   description,
   category,
   image,
-  githubRepo
+  githubRepo,
+  email
 }`);
 
 export const PLAYLIST_BY_SLUG_QUERY =
@@ -79,5 +82,5 @@ export const PLAYLIST_BY_SLUG_QUERY =
   _id,
   title,
   slug,
-  select[]->{_id, title, slug, _createdAt, author->{_id, name, slug, image, bio}, views, description, category, image, githubRepo, pitch}
+  select[]->{_id, title, slug, _createdAt, author->{_id, name, slug, image, bio}, views, description, category, image, githubRepo, email, pitch}
 }`);

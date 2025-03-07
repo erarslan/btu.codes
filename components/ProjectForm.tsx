@@ -5,7 +5,14 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import MDEditor from "@uiw/react-md-editor";
 import { Button } from "./ui/button";
-import { Send, Image as ImageIcon, Type, FileText, Github } from "lucide-react";
+import {
+  Send,
+  Image as ImageIcon,
+  Type,
+  FileText,
+  Github,
+  Mail,
+} from "lucide-react";
 import { formSchema } from "@/lib/validation";
 import { z } from "zod";
 import { toast } from "sonner";
@@ -41,6 +48,7 @@ interface ProjectFormProps {
     };
     pitch: string;
     githubRepo: string;
+    email?: string;
   };
   isEditing?: boolean;
 }
@@ -66,6 +74,7 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
   const [description, setDescription] = useState(
     initialData?.description || ""
   );
+  const [email, setEmail] = useState(initialData?.email || "");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [githubRepo, setGithubRepo] = useState(initialData?.githubRepo || "");
 
@@ -112,6 +121,7 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
         description: formData.get("description") as string,
         category: updatedCategories,
         githubRepo: formData.get("githubRepo") as string,
+        email: formData.get("email") as string,
         pitch,
       };
 
@@ -206,7 +216,7 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
           Proje Başlığı
         </label>
         <div className="relative">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+          <div className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
             <Type className="size-4" />
           </div>
           <Input
@@ -230,7 +240,7 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
           Proje Açıklaması
         </label>
         <div className="relative">
-          <div className="absolute top-3 left-3 pointer-events-none text-gray-500">
+          <div className="absolute top-3 left-3 text-gray-500">
             <FileText className="size-4" />
           </div>
           <Textarea
@@ -351,7 +361,7 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
           Proje Resmi (İsteğe Bağlı)
         </label>
         <div className="relative">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+          <div className="absolute inset-y-0 left-0 flex items-center pl-3  text-gray-500">
             <ImageIcon className="size-4" />
           </div>
           <Input
@@ -381,7 +391,7 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
           GitHub Repo Linki
         </label>
         <div className="relative">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+          <div className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
             <Github className="size-4" />
           </div>
           <Input
@@ -397,6 +407,33 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
         {errors.githubRepo && (
           <p className="text-red-500 text-sm">{errors.githubRepo}</p>
         )}
+      </div>
+
+      <div className="space-y-2">
+        <label
+          htmlFor="email"
+          className="block text-sm font-medium text-gray-700"
+        >
+          İletişim E-postası (İsteğe Bağlı)
+        </label>
+        <div className="relative">
+          <div className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+            <Mail className="size-4" />
+          </div>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            defaultValue={initialData?.email || ""}
+            placeholder="Projeniz için iletişim e-postası"
+            className="pl-10 focus:ring-btu_primary focus:border-btu_primary"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+        <p className="text-xs text-gray-500">
+          Bu e-posta, projenizle ilgili iletişim için kullanılacaktır.
+        </p>
       </div>
 
       <div data-color-mode="light" className="space-y-2">

@@ -19,9 +19,10 @@ export const createProject = async (
     });
   }
 
-  const { title, description, category, githubRepo } = Object.fromEntries(
-    Array.from(form).filter(([key]) => key !== "pitch" && key !== "image")
-  );
+  const { title, description, category, githubRepo, email } =
+    Object.fromEntries(
+      Array.from(form).filter(([key]) => key !== "pitch" && key !== "image")
+    );
 
   const parsedCategory = JSON.parse(category as string);
   const slug = slugify(title as string, { lower: true, strict: true });
@@ -53,6 +54,10 @@ export const createProject = async (
       githubRepo,
       pitch,
     };
+
+    if (email) {
+      project.email = email;
+    }
 
     if (imageAsset) {
       project.image = {
@@ -99,9 +104,10 @@ export const updateProject = async (
     });
   }
 
-  const { title, description, category, githubRepo } = Object.fromEntries(
-    Array.from(form).filter(([key]) => key !== "pitch" && key !== "image")
-  );
+  const { title, description, category, githubRepo, email } =
+    Object.fromEntries(
+      Array.from(form).filter(([key]) => key !== "pitch" && key !== "image")
+    );
 
   const parsedCategory = JSON.parse(category as string);
   const slug = slugify(title as string, { lower: true, strict: true });
@@ -129,6 +135,10 @@ export const updateProject = async (
       githubRepo,
       pitch,
     };
+
+    if (email) {
+      project.email = email;
+    }
 
     if (imageAsset) {
       project.image = {
