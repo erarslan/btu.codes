@@ -11,7 +11,9 @@ export default async function Home({
   const query = (await searchParams).query;
   const params = { search: query || null };
 
-  const projects = await client.fetch(PROJECTS_QUERY, params);
+  const projects = await client
+    .withConfig({ useCdn: false })
+    .fetch(PROJECTS_QUERY, params);
 
   return (
     <>
