@@ -26,3 +26,17 @@ export const PROGRAMMING_LANGUAGES = [
   "Go",
   "Rust",
 ];
+
+export const COURSES = [
+  "Nesneye Yönelik Programlama",
+  "Algoritmalar ve Programlama",
+  "Veri Yapıları",
+  "Veritabanı Yönetim Sistemleri",
+  "Web Programlama",
+  "Makine Öğrenmesi",
+  "Bilgisayar Ağları",
+  "İşletim Sistemleri",
+  "Bilgisayar Mimarisi",
+  "Gömülü Sistemler",
+  "Bilgisayar Grafikleri",
+];

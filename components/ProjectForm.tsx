@@ -23,6 +23,7 @@ import {
   TERM_PROJECT,
   DEVELOPMENT_AREAS,
   PROGRAMMING_LANGUAGES,
+  COURSES,
 } from "@/lib/constants";
 
 interface ProjectFormProps {
@@ -47,12 +48,12 @@ interface ProjectFormProps {
 const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
   const [pitch, setPitch] = useState(initialData?.pitch || "");
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(
-    initialData?.category || []
-  );
 
   const [isTermProject, setIsTermProject] = useState(
     initialData?.category?.includes(TERM_PROJECT) || false
+  );
+  const [selectedCourse, setSelectedCourse] = useState<string | undefined>(
+    initialData?.category?.find((cat) => COURSES.includes(cat))
   );
   const [selectedDevArea, setSelectedDevArea] = useState<string | undefined>(
     initialData?.category?.find((cat) => DEVELOPMENT_AREAS.includes(cat))
@@ -76,6 +77,10 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
 
       if (isTermProject) {
         updatedCategories.push(TERM_PROJECT);
+
+        if (selectedCourse) {
+          updatedCategories.push(selectedCourse);
+        }
       }
 
       if (selectedDevArea) {
@@ -85,8 +90,6 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
       if (selectedLanguage) {
         updatedCategories.push(selectedLanguage);
       }
-
-      setSelectedCategories(updatedCategories);
 
       const formDataWithCategories = new FormData();
       for (const [key, value] of formData.entries()) {
@@ -174,6 +177,9 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
   };
 
   const isCategorySelectionValid = () => {
+    if (isTermProject && !selectedCourse) {
+      return false;
+    }
     return selectedDevArea && selectedLanguage;
   };
 
@@ -260,6 +266,33 @@ const ProjectForm = ({ initialData, isEditing = false }: ProjectFormProps) => {
             {TERM_PROJECT}
           </label>
         </div>
+
+        {isTermProject && (
+          <div className="space-y-2 mb-4">
+            <label className="text-sm font-medium text-gray-700">
+              Ders Seçimi
+            </label>
+            <Select
+              value={selectedCourse}
+              onValueChange={setSelectedCourse}
+              required
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Ders seçin" />
+              </SelectTrigger>
+              <SelectContent>
+                {COURSES.map((course) => (
+                  <SelectItem key={course} value={course}>
+                    {course}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {isTermProject && !selectedCourse && (
+              <p className="text-red-500 text-sm">Lütfen bir ders seçin</p>
+            )}
+          </div>
+        )}
 
         <div className="space-y-2">
           <label className="text-sm font-medium text-gray-700">
