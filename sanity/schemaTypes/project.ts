@@ -45,7 +45,6 @@ export const project = defineType({
       options: {
         hotspot: true,
       },
-      validation: (Rule) => Rule.optional(),
     }),
     defineField({
       name: "githubRepo",
