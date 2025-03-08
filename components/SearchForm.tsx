@@ -1,12 +1,27 @@
-import Form from "next/form";
+"use client";
+
+import { useRouter } from "next/navigation";
 import SearchFormReset from "./SearchFormReset";
 import { Search } from "lucide-react";
 
 const SearchForm = ({ query }: { query?: string }) => {
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const searchQuery = formData.get("query");
+
+    if (searchQuery) {
+      router.push(`/?query=${searchQuery}`);
+    } else {
+      router.push("/");
+    }
+  };
+
   return (
-    <Form
-      action="/"
-      scroll={false}
+    <form
+      onSubmit={handleSubmit}
       className="search-form max-w-2xl mx-auto mt-6 px-4"
     >
       <div className="relative flex items-center">
@@ -26,7 +41,7 @@ const SearchForm = ({ query }: { query?: string }) => {
           </button>
         </div>
       </div>
-    </Form>
+    </form>
   );
 };
 
