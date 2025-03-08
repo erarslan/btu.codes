@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BTU Gallery
 
-## Getting Started
+A modern web platform for showcasing and managing projects, built with Next.js 15, Sanity CMS, and Tailwind CSS.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Project Showcase**: Display projects with rich media and descriptions
+- **User Authentication**: Secure login with Next-Auth
+- **Content Management**: Integrated Sanity CMS for easy content updates
+- **Responsive Design**: Beautiful UI that works on all devices
+- **Search Functionality**: Find projects quickly with advanced search
+- **Markdown Support**: Rich text editing for project descriptions
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 15, React 19, Tailwind CSS
+- **CMS**: Sanity.io
+- **Authentication**: NextAuth.js
+- **Styling**: Tailwind CSS, shadcn/ui components
+- **Deployment**: Vercel
+
+## 📋 Prerequisites
+
+- Node.js 18.x or higher
+- npm or yarn
+- Sanity.io account
+
+## 🔧 Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/btu.gallery.git
+   cd btu.gallery
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Set up environment variables:
+   Create a `.env.local` file in the root directory with the following variables:
+
+   ```
+   AUTH_SECRET="your_auth_secret"
+   AUTH_GITHUB_ID="your_github_id"
+   AUTH_GITHUB_SECRET="your_github_secret"
+   NEXT_PUBLIC_SANITY_PROJECT_ID="your_sanity_project_id"
+   NEXT_PUBLIC_SANITY_DATASET="production"
+   SANITY_WRITE_TOKEN="your_sanity_write_token"
+   ```
+
+4. Start the development server:
+
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+
+## 🏗️ Project Structure
+
+```
+btu.gallery/
+├── app/                  # Next.js app directory
+│   ├── api/              # API routes
+│   ├── (root)/           # Main application routes
+│   ├── studio/           # Sanity Studio integration
+│   └── ...
+├── components/           # React components
+│   ├── ui/               # UI components (shadcn/ui)
+│   └── ...
+├── lib/                  # Utility functions and shared code
+├── public/               # Static assets
+├── sanity/               # Sanity configuration and schemas
+│   ├── schemaTypes/      # Content type definitions
+│   └── ...
+└── ...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🧩 Sanity CMS
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This project uses Sanity.io as a headless CMS. The Sanity Studio is integrated directly into the Next.js application and can be accessed at `/studio`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 👥 Contributing
 
-## Learn More
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-To learn more about Next.js, take a look at the following resources:
+## 📞 Contact
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+If you have any questions or feedback, please reach out to [emrerars@gmail.com](mailto:emrerars@gmail.com).
