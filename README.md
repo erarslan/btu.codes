@@ -1,6 +1,6 @@
-# BTU Gallery
+# BTU Codes
 
-A modern web platform for showcasing and managing projects, built with Next.js 15, Sanity CMS, and Tailwind CSS.
+A modern web platform for showcasing projects, built with Next.js 15, Sanity CMS, and Tailwind CSS.
 
 ## 🚀 Features
 
@@ -30,8 +30,8 @@ A modern web platform for showcasing and managing projects, built with Next.js 1
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/btu.gallery.git
-   cd btu.gallery
+   git clone https://github.com/erarslan/btu.codes.git
+   cd btu.codes
    ```
 
 2. Install dependencies:
@@ -67,7 +67,7 @@ A modern web platform for showcasing and managing projects, built with Next.js 1
 ## 🏗️ Project Structure
 
 ```
-btu.gallery/
+btu.codes/
 ├── app/                  # Next.js app directory
 │   ├── api/              # API routes
 │   ├── (root)/           # Main application routes
