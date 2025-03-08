@@ -4,7 +4,7 @@ A modern web platform for showcasing projects, built with Next.js 15, Sanity CMS
 
 ## 🌐 Production Website
 
-The project is deployed and running at: [https://www.btu.codes/](https://www.btu.codes/)
+The project is deployed and running at: [https://www.btu.codes](https://www.btu.codes)
 
 ## 🚀 Features
 
