@@ -2,6 +2,10 @@
 
 A modern web platform for showcasing projects, built with Next.js 15, Sanity CMS, and Tailwind CSS.
 
+## 🌐 Production Website
+
+The project is deployed and running at: [https://www.btu.codes/](https://www.btu.codes/)
+
 ## 🚀 Features
 
 - **Project Showcase**: Display projects with rich media and descriptions
