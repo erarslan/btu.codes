@@ -114,7 +114,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           </div>
 
           <div className="md:col-span-2 space-y-6">
-            <div className="sm:flex sm:items-center sm:justify-between">
+            <div className="sm:flex sm:items-center sm:justify-between sm:gap-10">
               <Link
                 href={`/kullanici/${project.author._id}`}
                 className="flex items-center gap-3 group"
